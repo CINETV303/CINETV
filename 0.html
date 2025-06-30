@@ -15,37 +15,10 @@
         
         body {
             background-color: #0f0f1b;
+            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             overflow-x: hidden;
             position: relative;
-        }
-        
-        /* Animation des étoiles */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-        
-        @keyframes move {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
         }
         
         /* Navigation */
@@ -80,7 +53,8 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 25px;
-            padding: 5px 15px;
+            padding: 5px 10px;
+            width: 200px;
         }
         
         .search-box input {
@@ -88,13 +62,30 @@
             border: none;
             outline: none;
             color: white;
-            width: 150px;
+            width: 100%;
             padding: 5px;
         }
         
         .search-box i {
             color: #ccc;
             cursor: pointer;
+        }
+        
+        /* Menu */
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .menu-item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .menu-item:hover {
+            color: #e94560;
         }
         
         /* Hero Banner */
@@ -173,7 +164,7 @@
         
         .movies-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-bottom: 40px;
         }
@@ -229,57 +220,6 @@
             gap: 5px;
         }
         
-        /* Contact Banner */
-        .contact-banner {
-            background: linear-gradient(to right, #1a1a2e, #16213e);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 40px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            animation: fadeIn 1s ease-in-out;
-        }
-        
-        .contact-text {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .contact-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #e94560;
-        }
-        
-        .contact-description {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .whatsapp-btn:hover {
-            background: #128C7E;
-            transform: scale(1.05);
-        }
-        
         /* Footer */
         footer {
             background: #0d0d15;
@@ -323,12 +263,6 @@
         }
         
         /* Responsive */
-        @media (max-width: 1024px) {
-            .movies-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
         @media (max-width: 768px) {
             .hero-banner {
                 height: 300px;
@@ -339,28 +273,20 @@
             }
             
             .movies-container {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
             }
             
             .movie-card img {
-                height: 120px;
+                height: 150px;
             }
             
-            .movie-info {
-                padding: 8px;
+            .menu {
+                display: none;
             }
             
-            .movie-name {
-                font-size: 0.8rem;
-            }
-            
-            .movie-category, .movie-interpreter {
-                font-size: 0.7rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
+            .search-box {
+                width: 150px;
             }
         }
         
@@ -374,20 +300,12 @@
             }
             
             .movies-container {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
             }
             
             .movie-card img {
-                height: 90px;
-            }
-            
-            .movie-name {
-                font-size: 0.7rem;
-            }
-            
-            .movie-category, .movie-interpreter {
-                font-size: 0.6rem;
+                height: 120px;
             }
             
             .section-title {
@@ -395,44 +313,22 @@
                 margin: 20px 0 15px;
             }
             
-            .contact-banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
-            }
-            
-            .whatsapp-btn {
-                width: 100%;
-                justify-content: center;
-                padding: 10px;
-                font-size: 0.8rem;
-            }
-            
-            .contact-title {
-                font-size: 1.1rem;
-            }
-            
-            .contact-description {
-                font-size: 0.8rem;
-            }
-            
-            .footer-links {
-                gap: 15px;
-            }
-            
-            .footer-link {
-                font-size: 0.8rem;
+            .search-box {
+                width: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animation des étoiles -->
-    <div class="stars" id="stars"></div>
-    
     <!-- Navigation -->
     <nav class="navbar">
         <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
+        <div class="menu">
+            <a href="#series" class="menu-item">Séries</a>
+            <a href="#horreur" class="menu-item">Horreur</a>
+            <a href="#action" class="menu-item">Action</a>
+            <a href="#autres" class="menu-item">Autres</a>
+        </div>
         <div class="search-box">
             <input type="text" placeholder="Rechercher..." id="searchInput">
             <i class="fas fa-search" id="searchButton"></i>
@@ -449,7 +345,7 @@
     <!-- Main Content -->
     <div class="main-container">
         <!-- Séries Section -->
-        <h2 class="section-title"><i class="fas fa-tv"></i> Séries Populaires</h2>
+        <h2 class="section-title" id="series"><i class="fas fa-tv"></i> SÉRIES POPULAIRES</h2>
         <div class="movies-container">
             <!-- Squid Game -->
             <a href="1.html" class="movie-card">
@@ -460,28 +356,18 @@
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
-            
-            <!-- DIABLO -->
-            <a href="DIABLO_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR74U9Z3GdSY_Fa1BVohQ8QRtPq5aX6PvgcBTeLPYHCmbIBsJ7ou73Bdw&usqp=CAE&s" alt="DIABLO">
-                <div class="movie-info">
-                    <div class="movie-name">DIABLO</div>
-                    <div class="movie-category">Horreur, Mystère</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
         </div>
         
-        <!-- Films Section -->
-        <h2 class="section-title"><i class="fas fa-film"></i> Films à Succès</h2>
+        <!-- Films d'horreur Section -->
+        <h2 class="section-title" id="horreur"><i class="fas fa-ghost"></i> FILMS D'HORREUR</h2>
         <div class="movies-container">
-            <!-- OLD GUARD -->
-            <a href="OLD_GUARD_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
+            <!-- UNTIL DOWN -->
+            <a href="UNTIL DOWN.html" class="movie-card">
+                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DOWN">
                 <div class="movie-info">
-                    <div class="movie-name">OLD GUARD</div>
-                    <div class="movie-category">Action, Aventure</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    <div class="movie-name">UNTIL DOWN</div>
+                    <div class="movie-category">Horreur, Survival</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
                 </div>
             </a>
             
@@ -491,6 +377,30 @@
                 <div class="movie-info">
                     <div class="movie-name">SINNERS</div>
                     <div class="movie-category">Thriller, Drame</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <!-- IMMACULÉE -->
+            <a href="IMMACULATE.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CDkg1TWQgBW0ZYrgBrytw6kMRTmqkXyjNUuSsfv2yUou9BY&s" alt="IMMACULÉE">
+                <div class="movie-info">
+                    <div class="movie-name">IMMACULÉE</div>
+                    <div class="movie-category">Horreur, Thriller</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Films d'action Section -->
+        <h2 class="section-title" id="action"><i class="fas fa-explosion"></i> FILMS D'ACTION</h2>
+        <div class="movies-container">
+            <!-- OLD GUARD -->
+            <a href="OLD_GUARD_A.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
+                <div class="movie-info">
+                    <div class="movie-name">OLD GUARD</div>
+                    <div class="movie-category">Action, Aventure</div>
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
@@ -505,33 +415,13 @@
                 </div>
             </a>
             
-            <!-- STRAW -->
-            <a href="STRAW_A.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
+            <!-- DIABLO -->
+            <a href="DIABLO_A.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR74U9Z3GdSY_Fa1BVohQ8QRtPq5aX6PvgcBTeLPYHCmbIBsJ7ou73Bdw&usqp=CAE&s" alt="DIABLO">
                 <div class="movie-info">
-                    <div class="movie-name">STRAW</div>
-                    <div class="movie-category">Horreur, Thriller</div>
+                    <div class="movie-name">DIABLO</div>
+                    <div class="movie-category">Horreur, Mystère</div>
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DEVA -->
-            <a href="DEVA_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA">
-                <div class="movie-info">
-                    <div class="movie-name">DEVA</div>
-                    <div class="movie-category">Fantastique, Mystère</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- UNTIL DOWN -->
-            <a href="UNTIL DOWN.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DOWN">
-                <div class="movie-info">
-                    <div class="movie-name">UNTIL DOWN</div>
-                    <div class="movie-category">Horreur, Survival</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
                 </div>
             </a>
             
@@ -544,92 +434,67 @@
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
-        </div>
-        
-        <!-- Contact Banner -->
-        <section class="contact-banner">
-            <div class="contact-text">
-                <h3 class="contact-title">Besoin d'aide ?</h3>
-                <p class="contact-description">Contactez-nous directement sur WhatsApp pour toute question ou problème technique.</p>
-                <p class="contact-description">Service client disponible 24h/24.</p>
-                <p class="contact-description">Pour le support téléphonique : +257 76389163</p>
-            </div>
-            <a href="https://wa.me/25762666571" class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> +257 62666571 (WhatsApp)
-            </a>
-        </section>
-        
-        <!-- Nouveautés Section -->
-        <h2 class="section-title"><i class="fas fa-star"></i> Nouveautés</h2>
-        <div class="movies-container">
-            <a href="1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKuaXvXPGcKNvtX_o7FKLQ2xqYGiwjO9V22URd74L5N_WKuVIJ&s" alt="Squid Game S03">
-                <div class="movie-info">
-                    <div class="movie-name">Squid Game S03</div>
-                    <div class="movie-category">Nouveaux épisodes</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
             
-            <a href="OLD_GUARD_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
-                <div class="movie-info">
-                    <div class="movie-name">OLD GUARD</div>
-                    <div class="movie-category">Nouveauté</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <a href="SINNERS_A.html" class="movie-card">
-                <img src="https://resizing.flixster.com/VR3Tfr9zpNllsU6RchvnbhGmPkc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2VhOTdiZDNjLTlmODQtNGNlYi1iZWYwLWNkYjY2YmI5YzZjYS5qcGc=" alt="SINNERS">
-                <div class="movie-info">
-                    <div class="movie-name">SINNERS</div>
-                    <div class="movie-category">Nouveauté</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <a href="JAAT_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdsWHig2iEwsiXUzdSPlupp69X2icogQzKwwMHhfDOC5D-Foo&s" alt="JAAT">
-                <div class="movie-info">
-                    <div class="movie-name">JAAT</div>
-                    <div class="movie-category">Nouveauté</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <a href="STRAW_A.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
-                <div class="movie-info">
-                    <div class="movie-name">STRAW</div>
-                    <div class="movie-category">Nouveauté</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
+            <!-- DEVA -->
             <a href="DEVA_A.html" class="movie-card">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA">
                 <div class="movie-info">
                     <div class="movie-name">DEVA</div>
-                    <div class="movie-category">Nouveauté</div>
+                    <div class="movie-category">Action, Fantastique</div>
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
             
-            <a href="UNTIL DOWN.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DOWN">
+            <!-- PUSHPA -->
+            <a href="PUSHPA_2.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLw236lGOi1DDJwqX9PgJIS2d4Ls667T-948heqpL6-I20SE_&s" alt="PUSHPA">
                 <div class="movie-info">
-                    <div class="movie-name">UNTIL DOWN</div>
-                    <div class="movie-category">Sortie récente</div>
+                    <div class="movie-name">PUSHPA</div>
+                    <div class="movie-category">Action, Drame</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <!-- CLEANER -->
+            <a href="CLEANER.html" class="movie-card">
+                <img src="http://www.impawards.com/intl/uk/2025/posters/cleaner_ver2.jpg" alt="CLEANER">
+                <div class="movie-info">
+                    <div class="movie-name">CLEANER</div>
+                    <div class="movie-category">Action, Thriller</div>
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
                 </div>
             </a>
             
-            <a href="13_SINS.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0u34cPv2k6jqOYhCniLKCoJuB8CNinnV0hfhQomAKlWXa_9Q&s" alt="13 SINS">
+            <!-- RUSTOM -->
+            <a href="RUSTOM_A_1.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM">
                 <div class="movie-info">
-                    <div class="movie-name">13 SINS</div>
-                    <div class="movie-category">Nouveau</div>
+                    <div class="movie-name">RUSTOM</div>
+                    <div class="movie-category">Action, Thriller</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <!-- SYE RAA NARASIMHA REDDY -->
+            <a href="SYE_RAA.html" class="movie-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrw2LUmKUwiCe0J4LXDyPFaCBbvwKLcRIFIV6DBbxqTtL2PjNl&s" alt="SYE RAA NARASIMHA REDDY">
+                <div class="movie-info">
+                    <div class="movie-name">SYE RAA NARASIMHA REDDY</div>
+                    <div class="movie-category">Action, Historique</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Autres Section -->
+        <h2 class="section-title" id="autres"><i class="fas fa-ellipsis-h"></i> AUTRES</h2>
+        <div class="movies-container">
+            <!-- STRAW -->
+            <a href="STRAW_A.html" class="movie-card">
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
+                <div class="movie-info">
+                    <div class="movie-name">STRAW</div>
+                    <div class="movie-category">Horreur, Thriller</div>
                     <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
@@ -640,11 +505,11 @@
     <footer>
         <div class="footer-links">
             <a href="#" class="footer-link">Accueil</a>
-            <a href="#" class="footer-link">Séries</a>
-            <a href="#" class="footer-link">Films</a>
-            <a href="#" class="footer-link">Nouveautés</a>
+            <a href="#series" class="footer-link">Séries</a>
+            <a href="#horreur" class="footer-link">Horreur</a>
+            <a href="#action" class="footer-link">Action</a>
+            <a href="#autres" class="footer-link">Autres</a>
             <a href="#" class="footer-link">À propos</a>
-            <a href="#" class="footer-link">Contact</a>
         </div>
         <div class="copyright">
             &copy; 2025 CINETV. Tous droits réservés.
@@ -655,35 +520,6 @@
     </footer>
 
     <script>
-        // Création des étoiles animées
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starsCount = 150;
-            
-            for (let i = 0; i < starsCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Taille aléatoire entre 1px et 3px
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                // Position aléatoire
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                
-                // Durée d'animation aléatoire
-                const duration = Math.random() * 5 + 3;
-                star.style.setProperty('--duration', `${duration}s`);
-                
-                // Délai d'animation aléatoire
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
         // Fonctionnalité de recherche
         document.getElementById('searchButton').addEventListener('click', function() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -697,9 +533,6 @@
                 document.getElementById('searchButton').click();
             }
         });
-        
-        // Créer les étoiles au chargement de la page
-        window.addEventListener('load', createStars);
     </script>
 </body>
 </html>
