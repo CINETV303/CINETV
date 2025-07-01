@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVA B | CinéTV</title>
+    <title>DEVA A | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5YGXCXLV6N');
+    </script>
     <style>
         * {
             margin: 0;
@@ -379,11 +387,11 @@
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/10PVc0Eh-3vBcixrnnb-s0py76mXA-C4r/preview" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/10NVoUA41bpz7bpRLhgGxLEB118yBTtNA/preview" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <h1 class="movie-title">DEVA B</h1>
+            <h1 class="movie-title">DEVA A</h1>
             <div class="interpreter">
                 <i class="fas fa-microphone"></i>
                 <span>ROCKY KIMOMO</span>
@@ -406,9 +414,9 @@
         <section class="similar-movies">
             <h2 class="section-title">Contenus Similaires</h2>
             <div class="movies-container">
-                <a href="DEVA_A.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA A">
-                    <div class="movie-name">DEVA A</div>
+                <a href="DEVA_B.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA B">
+                    <div class="movie-name">DEVA B</div>
                 </a>
                 
                 <a href="OLD_GUARD_A.html" class="movie-card">
@@ -486,8 +494,8 @@
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('devaBLikes') ? parseInt(localStorage.getItem('devaBLikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedDevaB') === 'true';
+        let likes = localStorage.getItem('devaALikes') ? parseInt(localStorage.getItem('devaALikes')) : 0;
+        let userLiked = localStorage.getItem('userLikedDevaA') === 'true';
         
         updateLikeDisplay();
         
@@ -500,8 +508,8 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('devaBLikes', likes);
-            localStorage.setItem('userLikedDevaB', userLiked);
+            localStorage.setItem('devaALikes', likes);
+            localStorage.setItem('userLikedDevaA', userLiked);
             
             updateLikeDisplay();
         });
@@ -542,7 +550,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez DEVA B sur CinéTV');
+        const title = encodeURIComponent('Regardez DEVA A sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();

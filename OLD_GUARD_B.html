@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLD GUARD B | CinéTV</title>
+    <title>OLD GUARD A | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5YGXCXLV6N');
+    </script>
     <style>
         * {
             margin: 0;
@@ -379,11 +387,11 @@
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/1UQz0hZaq7TTpQORTnqzKdVHtqOsya8lj/preview" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/1o3jhpPv7fyPXMrH-QLqba_qAeHidneSt/preview" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <h1 class="movie-title">OLD GUARD B</h1>
+            <h1 class="movie-title">OLD GUARD A</h1>
             <div class="interpreter">
                 <i class="fas fa-microphone"></i>
                 <span>ROCKY KIMOMO</span>
@@ -406,9 +414,9 @@
         <section class="similar-movies">
             <h2 class="section-title">Films Similaires</h2>
             <div class="movies-container">
-                <a href="OLD_GUARD_A.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD A">
-                    <div class="movie-name">OLD GUARD A</div>
+                <a href="OLD_GUARD_B.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD B">
+                    <div class="movie-name">OLD GUARD B</div>
                 </a>
                 
                 <a href="13_sins.html" class="movie-card">
@@ -484,8 +492,8 @@
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('oldGuardBLikes') ? parseInt(localStorage.getItem('oldGuardBLikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedOldGuardB') === 'true';
+        let likes = localStorage.getItem('oldGuardALikes') ? parseInt(localStorage.getItem('oldGuardALikes')) : 0;
+        let userLiked = localStorage.getItem('userLikedOldGuardA') === 'true';
         
         updateLikeDisplay();
         
@@ -498,8 +506,8 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('oldGuardBLikes', likes);
-            localStorage.setItem('userLikedOldGuardB', userLiked);
+            localStorage.setItem('oldGuardALikes', likes);
+            localStorage.setItem('userLikedOldGuardA', userLiked);
             
             updateLikeDisplay();
         });
@@ -540,7 +548,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez OLD GUARD B sur CinéTV');
+        const title = encodeURIComponent('Regardez OLD GUARD A sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();
