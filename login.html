@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | CinéTV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f1b;
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            height: 60px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e94560;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .login-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 5%;
+        }
+        
+        .login-box {
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #e94560;
+        }
+        
+        .auth0-btn {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .auth0-btn:hover {
+            background: #d13354;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #aaa;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #444;
+        }
+        
+        .divider::before {
+            margin-right: 10px;
+        }
+        
+        .divider::after {
+            margin-left: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        
+        .login-btn {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background: #d13354;
+        }
+        
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #e94560;
+        }
+        
+        footer {
+            background: #0d0d15;
+            padding: 20px 5%;
+            text-align: center;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .designer-credit {
+            color: #aaa;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 8px 5%;
+                height: 50px;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .login-box {
+                padding: 30px;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 25px 20px;
+            }
+            
+            .auth0-btn, .login-btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
+    </nav>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Connexion à CINETV</h1>
+            
+            <button id="auth0-login" class="auth0-btn">
+                <i class="fas fa-user-lock"></i> Se connecter avec Auth0
+            </button>
+            
+            <div class="divider">OU</div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="votre@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
+            </form>
+            
+            <div class="footer-links">
+                <a href="#" id="forgot-password">Mot de passe oublié ?</a>
+                <a href="#" id="signup-link">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="copyright">
+            &copy; 2025 CINETV. Tous droits réservés.
+        </div>
+        <div class="designer-credit">
+            Créé par AUDRY DESIGNER
+        </div>
+    </footer>
+
+    <script>
+        // Configuration Auth0 avec VOS informations
+        const auth0 = new Auth0Client({
+            domain: 'cinetv.us.auth0.com',
+            client_id: 'H3XKZGyLVMbCkeAdCZB79iZZpkK63tDr',
+            redirect_uri: 'https://cinetv257.github.io/CINETV/index.html',
+            audience: 'https://cinetv.us.auth0.com/api/v2/',
+            scope: 'openid profile email'
+        });
+
+        // Gestionnaire de connexion Auth0
+        document.getElementById('auth0-login').addEventListener('click', async () => {
+            try {
+                await auth0.loginWithRedirect({
+                    screen_hint: 'login'
+                });
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                alert('Erreur lors de la connexion: ' + error.message);
+            }
+        });
+
+        // Gestionnaire de création de compte
+        document.getElementById('signup-link').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await auth0.loginWithRedirect({
+                    screen_hint: 'signup',
+                    redirect_uri: 'https://cinetv257.github.io/CINETV/index.html'
+                });
+            } catch (error) {
+                console.error('Erreur d\'inscription:', error);
+                alert('Erreur lors de l\'inscription: ' + error.message);
+            }
+        });
+
+        // Gestionnaire de mot de passe oublié
+        document.getElementById('forgot-password').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await auth0.loginWithRedirect({
+                    screen_hint: 'forgot-password',
+                    redirect_uri: 'https://cinetv257.github.io/CINETV/index.html'
+                });
+            } catch (error) {
+                console.error('Erreur de réinitialisation:', error);
+                alert('Erreur lors de la réinitialisation: ' + error.message);
+            }
+        });
+
+        // Gestionnaire de formulaire de connexion alternative
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                await auth0.loginWithRedirect({
+                    connection: 'Username-Password-Authentication',
+                    username: email,
+                    password: password,
+                    redirect_uri: 'https://cinetv257.github.io/CINETV/index.html'
+                });
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                alert('Identifiants incorrects: ' + error.description);
+            }
+        });
+
+        // Vérification de l'état d'authentification
+        async function checkAuthState() {
+            try {
+                // Vérifie si nous revenons d'une redirection Auth0
+                if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+                    await auth0.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+
+                const isAuthenticated = await auth0.isAuthenticated();
+                
+                if (isAuthenticated) {
+                    // Rediriger vers la page d'accueil si déjà connecté
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                console.error('Erreur de vérification:', error);
+            }
+        }
+
+        // Vérification au chargement
+        window.addEventListener('load', checkAuthState);
+    </script>
+</body>
+</html>
