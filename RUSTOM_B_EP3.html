@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUSTOM C | CinéTV</title>
+    <title>RUSTOM A | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5YGXCXLV6N');
+    </script>
     <style>
         * {
             margin: 0;
@@ -408,7 +416,7 @@
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/10p9NwSwgiier4VrNO5BJx4qqGWymdNC_/preview" allowfullscreen id="videoFrame"></iframe>
+                    <iframe src="https://drive.google.com/file/d/10Y6uPRaTAYlPpxWPRAKh_MdyqYjHoOSk/preview" allowfullscreen id="videoFrame"></iframe>
                 </div>
             </div>
             
@@ -419,7 +427,7 @@
             </div>
 
             <div class="episode-selector">
-                <button class="episode-btn active" onclick="changeEpisode('https://drive.google.com/file/d/10p9NwSwgiier4VrNO5BJx4qqGWymdNC_/preview', this)">Épisode 1</button>
+                <button class="episode-btn active" onclick="changeEpisode('https://drive.google.com/file/d/10Y6uPRaTAYlPpxWPRAKh_MdyqYjHoOSk/preview', this)">Épisode 1</button>
                 <button class="episode-btn" onclick="changeEpisode('https://drive.google.com/file/d/EPISODE_2_LINK/preview', this)">Épisode 2</button>
                 <button class="episode-btn" onclick="changeEpisode('https://drive.google.com/file/d/EPISODE_3_LINK/preview', this)">Épisode 3</button>
             </div>
@@ -441,18 +449,18 @@
         <section class="similar-movies">
             <h2 class="section-title">Autres Épisodes</h2>
             <div class="movies-container">
-                <a href="RUSTOM_C_EP1.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM C Épisode 1">
+                <a href="RUSTOM_A_EP1.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM A Épisode 1">
                     <div class="movie-name">Épisode 1</div>
                 </a>
                 
-                <a href="RUSTOM_C_EP2.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM C Épisode 2">
+                <a href="RUSTOM_A_EP2.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM A Épisode 2">
                     <div class="movie-name">Épisode 2</div>
                 </a>
                 
-                <a href="RUSTOM_C_EP3.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM C Épisode 3">
+                <a href="RUSTOM_A_EP3.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM A Épisode 3">
                     <div class="movie-name">Épisode 3</div>
                 </a>
             </div>
@@ -521,8 +529,8 @@
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('rustomCLikes') ? parseInt(localStorage.getItem('rustomCLikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedRustomC') === 'true';
+        let likes = localStorage.getItem('rustomALikes') ? parseInt(localStorage.getItem('rustomALikes')) : 0;
+        let userLiked = localStorage.getItem('userLikedRustomA') === 'true';
         
         updateLikeDisplay();
         
@@ -535,8 +543,8 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('rustomCLikes', likes);
-            localStorage.setItem('userLikedRustomC', userLiked);
+            localStorage.setItem('rustomALikes', likes);
+            localStorage.setItem('userLikedRustomA', userLiked);
             
             updateLikeDisplay();
         });
@@ -577,7 +585,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez RUSTOM C sur CinéTV');
+        const title = encodeURIComponent('Regardez RUSTOM A sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();
