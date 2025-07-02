@@ -5,38 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CINETV - Connexion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getAuth, 
-                 createUserWithEmailAndPassword, 
-                 signInWithEmailAndPassword, 
-                 sendPasswordResetEmail,
-                 signInWithPopup,
-                 GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB77EmeaPTvtXCH4EL-1E1SgmyW6Yz9lLI",
-            authDomain: "cinetv257.firebaseapp.com",
-            projectId: "cinetv257",
-            storageBucket: "cinetv257.firebasestorage.app",
-            messagingSenderId: "402664770835",
-            appId: "1:402664770835:web:1adaea98f40ca609645ee6",
-            measurementId: "G-194WCGXQSH"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        window.firebaseAuth = {
-            auth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            sendPasswordResetEmail,
-            signInWithPopup,
-            googleProvider
-        };
-    </script>
     <style>
         * {
             margin: 0;
@@ -56,6 +24,7 @@
             flex-direction: column;
         }
         
+        /* Navigation */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -82,6 +51,7 @@
             margin-right: 10px;
         }
         
+        /* Auth Container */
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -95,17 +65,9 @@
         
         .auth-title {
             font-size: 2rem;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             color: #e94560;
             text-align: center;
-        }
-        
-        .auth-description {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #aaa;
-            font-size: 0.95rem;
-            line-height: 1.5;
         }
         
         .form-group {
@@ -264,6 +226,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* Footer */
         footer {
             background: #0d0d15;
             padding: 30px 5%;
@@ -305,6 +268,7 @@
             font-style: italic;
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
             .auth-container {
                 padding: 20px;
@@ -320,10 +284,6 @@
                 font-size: 1.5rem;
             }
             
-            .auth-description {
-                font-size: 0.85rem;
-            }
-            
             .form-control {
                 padding: 10px 12px;
             }
@@ -335,20 +295,18 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
+        <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
     </nav>
     
+    <!-- Auth Container -->
     <div class="auth-container">
         <h1 class="auth-title" id="form-title"><i class="fas fa-sign-in-alt"></i> Connexion</h1>
         
-        <p class="auth-description">
-            Inscrivez-vous pour accéder à nos contenus exclusifs<br>
-            Films, séries et documentaires en illimité
-        </p>
-        
         <div id="auth-message" class="auth-message hidden"></div>
         
+        <!-- Login Form -->
         <form id="loginForm">
             <div class="form-group">
                 <label for="login-email">Adresse Email</label>
@@ -371,6 +329,7 @@
             </div>
         </form>
         
+        <!-- Register Form -->
         <form id="registerForm" class="hidden">
             <div class="form-group">
                 <label for="register-name">Nom complet</label>
@@ -408,6 +367,7 @@
         </div>
     </div>
     
+    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="index.html" class="footer-link">Accueil</a>
@@ -423,8 +383,46 @@
         </div>
     </footer>
 
-    <script>
-        // Afficher un message d'état
+    <!-- Firebase et Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            sendPasswordResetEmail,
+            signInWithPopup,
+            GoogleAuthProvider,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB77EmeaPTvtXCH4EL-1E1SgmyW6Yz9lLI",
+            authDomain: "cinetv257.firebaseapp.com",
+            projectId: "cinetv257",
+            storageBucket: "cinetv257.appspot.com",
+            messagingSenderId: "402664770835",
+            appId: "1:402664770835:web:1adaea98f40ca609645ee6",
+            measurementId: "G-194WCGXQSH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        window.firebaseAuth = {
+            auth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail,
+            signInWithPopup,
+            googleProvider,
+            updateProfile
+        };
+
+        // Gestion des messages
         function showMessage(message, isError = true) {
             const authMessage = document.getElementById('auth-message');
             authMessage.textContent = message;
@@ -436,112 +434,113 @@
             }, 5000);
         }
 
-        // Redirection après authentification
-        function handleSuccessfulAuth() {
-            showMessage('Connexion réussie ! Redirection vers votre espace...', false);
-            setTimeout(() => {
-                window.location.href = '0.html'; // Redirection vers 0.html
-            }, 2000);
-        }
-
         // Basculer entre les formulaires
-        document.getElementById('switch-to-register').addEventListener('click', function() {
+        document.getElementById('switch-to-register').addEventListener('click', () => {
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
             document.getElementById('form-title').innerHTML = '<i class="fas fa-user-plus"></i> Inscription';
             document.getElementById('auth-message').classList.add('hidden');
         });
-        
-        document.getElementById('switch-to-login').addEventListener('click', function() {
+
+        document.getElementById('switch-to-login').addEventListener('click', () => {
             document.getElementById('registerForm').classList.add('hidden');
             document.getElementById('loginForm').classList.remove('hidden');
             document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
             document.getElementById('auth-message').classList.add('hidden');
         });
-        
-        // Connexion par email/mot de passe
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+
+        // Connexion
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-            
-            firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password)
-                .then(() => {
-                    handleSuccessfulAuth();
-                })
-                .catch((error) => {
-                    let errorMessage;
-                    switch(error.code) {
-                        case 'auth/invalid-email': errorMessage = 'Adresse email invalide'; break;
-                        case 'auth/user-disabled': errorMessage = 'Ce compte est désactivé'; break;
-                        case 'auth/user-not-found': errorMessage = 'Aucun compte avec cet email'; break;
-                        case 'auth/wrong-password': errorMessage = 'Mot de passe incorrect'; break;
-                        default: errorMessage = 'Erreur de connexion';
-                    }
-                    showMessage(errorMessage);
-                });
+
+            try {
+                await firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password);
+                showMessage('Connexion réussie ! Redirection...', false);
+                setTimeout(() => window.location.href = 'index.html', 1500);
+            } catch (error) {
+                const errors = {
+                    'auth/invalid-email': 'Email invalide',
+                    'auth/user-not-found': 'Compte inexistant',
+                    'auth/wrong-password': 'Mot de passe incorrect',
+                    'auth/too-many-requests': 'Trop de tentatives'
+                };
+                showMessage(errors[error.code] || 'Erreur de connexion');
+            }
         });
-        
+
         // Inscription
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim();
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
-            
+
+            // Validation
             if (password !== confirmPassword) {
                 showMessage('Les mots de passe ne correspondent pas');
                 return;
             }
-            
-            firebaseAuth.createUserWithEmailAndPassword(firebaseAuth.auth, email, password)
-                .then((userCredential) => {
-                    // Mise à jour du nom utilisateur
-                    return userCredential.user.updateProfile({
+
+            try {
+                // Création du compte
+                const userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+                    firebaseAuth.auth, 
+                    email, 
+                    password
+                );
+
+                // Mise à jour du nom (optionnelle)
+                try {
+                    await firebaseAuth.updateProfile(userCredential.user, {
                         displayName: name
                     });
-                })
-                .then(() => {
-                    showMessage('Inscription réussie ! Vous êtes maintenant connecté.', false);
-                    handleSuccessfulAuth();
-                })
-                .catch((error) => {
-                    let errorMessage;
-                    switch(error.code) {
-                        case 'auth/email-already-in-use': errorMessage = 'Email déjà utilisé'; break;
-                        case 'auth/invalid-email': errorMessage = 'Email invalide'; break;
-                        case 'auth/weak-password': errorMessage = 'Mot de passe trop faible'; break;
-                        default: errorMessage = "Erreur d'inscription";
-                    }
-                    showMessage(errorMessage);
-                });
-        });
-        
-        // Mot de passe oublié
-        document.getElementById('forgot-password').addEventListener('click', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value || prompt('Entrez votre email pour réinitialiser votre mot de passe:');
-            
-            if (email) {
-                firebaseAuth.sendPasswordResetEmail(firebaseAuth.auth, email)
-                    .then(() => {
-                        showMessage('Email de réinitialisation envoyé à ' + email, false);
-                    })
-                    .catch(() => {
-                        showMessage("Erreur lors de l'envoi de l'email");
-                    });
+                    showMessage(`Bienvenue ${name} ! Compte créé avec succès`, false);
+                } catch {
+                    showMessage('Compte créé ! (Le nom n\'a pas pu être enregistré)', false);
+                }
+
+                // Reset et bascule vers login
+                document.getElementById('registerForm').reset();
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
+                document.getElementById('login-email').value = email;
+                
+            } catch (error) {
+                const errors = {
+                    'auth/email-already-in-use': 'Email déjà utilisé',
+                    'auth/invalid-email': 'Email invalide',
+                    'auth/weak-password': 'Mot de passe trop faible'
+                };
+                showMessage(errors[error.code] || 'Erreur lors de l\'inscription');
             }
         });
-        
+
+        // Mot de passe oublié
+        document.getElementById('forgot-password').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value || prompt('Entrez votre email:');
+            if (email) {
+                firebaseAuth.sendPasswordResetEmail(firebaseAuth.auth, email)
+                    .then(() => showMessage('Email de réinitialisation envoyé', false))
+                    .catch(() => showMessage('Erreur lors de l\'envoi'));
+            }
+        });
+
         // Connexion Google
-        document.getElementById('google-signin').addEventListener('click', function() {
+        document.getElementById('google-signin').addEventListener('click', () => {
             firebaseAuth.signInWithPopup(firebaseAuth.auth, firebaseAuth.googleProvider)
                 .then(() => {
-                    handleSuccessfulAuth();
+                    showMessage('Connexion Google réussie !', false);
+                    setTimeout(() => window.location.href = 'index.html', 1500);
                 })
-                .catch(() => {
-                    showMessage('Erreur lors de la connexion avec Google');
+                .catch(error => {
+                    showMessage(error.code === 'auth/popup-closed-by-user' 
+                        ? 'Connexion annulée' 
+                        : 'Erreur Google');
                 });
         });
     </script>
