@@ -24,7 +24,6 @@
             flex-direction: column;
         }
         
-        /* Navigation */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -51,7 +50,6 @@
             margin-right: 10px;
         }
         
-        /* Auth Container */
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -226,7 +224,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Footer */
         footer {
             background: #0d0d15;
             padding: 30px 5%;
@@ -268,7 +265,6 @@
             font-style: italic;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .auth-container {
                 padding: 20px;
@@ -295,18 +291,15 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
     </nav>
     
-    <!-- Auth Container -->
     <div class="auth-container">
         <h1 class="auth-title" id="form-title"><i class="fas fa-sign-in-alt"></i> Connexion</h1>
         
         <div id="auth-message" class="auth-message hidden"></div>
         
-        <!-- Login Form -->
         <form id="loginForm">
             <div class="form-group">
                 <label for="login-email">Adresse Email</label>
@@ -329,7 +322,6 @@
             </div>
         </form>
         
-        <!-- Register Form -->
         <form id="registerForm" class="hidden">
             <div class="form-group">
                 <label for="register-name">Nom complet</label>
@@ -367,10 +359,9 @@
         </div>
     </div>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="0.html" class="footer-link">Accueil</a>
             <a href="#" class="footer-link">À propos</a>
             <a href="#" class="footer-link">Contact</a>
             <a href="#" class="footer-link">Conditions d'utilisation</a>
@@ -383,7 +374,6 @@
         </div>
     </footer>
 
-    <!-- Firebase et Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import { 
@@ -395,7 +385,6 @@
             GoogleAuthProvider,
             updateProfile
         } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB77EmeaPTvtXCH4EL-1E1SgmyW6Yz9lLI",
@@ -409,30 +398,173 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const analytics = getAnalytics(app);
         const googleProvider = new GoogleAuthProvider();
 
-        window.firebaseAuth = {
-            auth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            sendPasswordResetEmail,
-            signInWithPopup,
-            googleProvider,
-            updateProfile
-        };
-
-        // Gestion des messages
-        function showMessage(message, isError = true) {
+        // Fonction améliorée pour afficher les messages
+        function showAuthMessage(message, isError = true) {
             const authMessage = document.getElementById('auth-message');
             authMessage.textContent = message;
             authMessage.className = isError ? 'auth-message error-message' : 'auth-message success-message';
             authMessage.classList.remove('hidden');
             
+            // Scroll vers le message pour le rendre visible
+            authMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
             setTimeout(() => {
                 authMessage.classList.add('hidden');
             }, 5000);
         }
+
+        // Connexion avec email/mot de passe - Version DEBUGGÉE
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                showAuthMessage('Tentative de connexion en cours...', false);
+                
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                console.log('Connexion réussie - User:', userCredential.user);
+                
+                showAuthMessage('Connexion réussie ! Redirection vers l\'accueil...', false);
+                
+                // Redirection garantie après 1.5s
+                setTimeout(() => {
+                    window.location.href = '0.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                
+                let errorMessage = "Erreur de connexion";
+                switch(error.code) {
+                    case 'auth/invalid-email':
+                        errorMessage = "Format d'email invalide";
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = "Compte désactivé";
+                        break;
+                    case 'auth/user-not-found':
+                        errorMessage = "Aucun compte associé à cet email";
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = "Mot de passe incorrect";
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = "Trop de tentatives. Réessayez plus tard";
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = "Problème de connexion internet";
+                        break;
+                }
+                
+                showAuthMessage(errorMessage);
+            }
+        });
+
+        // Inscription - Version DEBUGGÉE
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            // Validation côté client
+            if (password !== confirmPassword) {
+                showAuthMessage("Les mots de passe ne correspondent pas");
+                return;
+            }
+
+            if (password.length < 6) {
+                showAuthMessage("Le mot de passe doit contenir au moins 6 caractères");
+                return;
+            }
+
+            try {
+                showAuthMessage("Création du compte en cours...", false);
+                
+                // Étape 1: Création du compte
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('Compte créé - User:', userCredential.user);
+                
+                // Étape 2: Mise à jour du nom (optionnelle)
+                try {
+                    await updateProfile(userCredential.user, { displayName: name });
+                    console.log('Nom mis à jour avec succès');
+                    showAuthMessage(`Bienvenue ${name} ! Compte créé avec succès.`, false);
+                } catch (updateError) {
+                    console.warn('Erreur mise à jour profil:', updateError);
+                    showAuthMessage("Compte créé avec succès ! (Le nom n'a pas pu être enregistré)", false);
+                }
+
+                // Réinitialisation et bascule vers le formulaire de connexion
+                document.getElementById('registerForm').reset();
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
+                document.getElementById('login-email').value = email;
+                
+            } catch (error) {
+                console.error('Erreur inscription:', error);
+                
+                let errorMessage = "Erreur lors de l'inscription";
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = "Cet email est déjà utilisé";
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = "Format d'email invalide";
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = "Mot de passe trop faible (min. 6 caractères)";
+                        break;
+                    case 'auth/operation-not-allowed':
+                        errorMessage = "Création de compte temporairement désactivée";
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = "Problème de connexion internet";
+                        break;
+                }
+                
+                showAuthMessage(errorMessage);
+            }
+        });
+
+        // Connexion avec Google
+        document.getElementById('google-signin').addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider)
+                .then(() => {
+                    showAuthMessage('Connexion Google réussie ! Redirection vers l\'accueil...', false);
+                    setTimeout(() => {
+                        window.location.href = '0.html';
+                    }, 1500);
+                })
+                .catch((error) => {
+                    console.error('Erreur Google SignIn:', error);
+                    showAuthMessage(error.code === 'auth/popup-closed-by-user' 
+                        ? 'Connexion Google annulée' 
+                        : 'Erreur lors de la connexion avec Google');
+                });
+        });
+
+        // Mot de passe oublié
+        document.getElementById('forgot-password').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value || prompt('Entrez votre email:');
+            if (email) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        showAuthMessage('Email de réinitialisation envoyé', false);
+                    })
+                    .catch((error) => {
+                        console.error('Erreur reset password:', error);
+                        showAuthMessage("Erreur lors de l'envoi de l'email de réinitialisation");
+                    });
+            }
+        });
 
         // Basculer entre les formulaires
         document.getElementById('switch-to-register').addEventListener('click', () => {
@@ -449,99 +581,13 @@
             document.getElementById('auth-message').classList.add('hidden');
         });
 
-        // Connexion
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            try {
-                await firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password);
-                showMessage('Connexion réussie ! Redirection...', false);
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            } catch (error) {
-                const errors = {
-                    'auth/invalid-email': 'Email invalide',
-                    'auth/user-not-found': 'Compte inexistant',
-                    'auth/wrong-password': 'Mot de passe incorrect',
-                    'auth/too-many-requests': 'Trop de tentatives'
-                };
-                showMessage(errors[error.code] || 'Erreur de connexion');
+        // Vérifier si l'utilisateur est déjà connecté
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('Utilisateur déjà connecté:', user.email);
+                // Redirection automatique si déjà connecté (optionnel)
+                // window.location.href = '0.html';
             }
-        });
-
-        // Inscription
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('register-name').value.trim();
-            const email = document.getElementById('register-email').value.trim();
-            const password = document.getElementById('register-password').value;
-            const confirmPassword = document.getElementById('register-confirm-password').value;
-
-            // Validation
-            if (password !== confirmPassword) {
-                showMessage('Les mots de passe ne correspondent pas');
-                return;
-            }
-
-            try {
-                // Création du compte
-                const userCredential = await firebaseAuth.createUserWithEmailAndPassword(
-                    firebaseAuth.auth, 
-                    email, 
-                    password
-                );
-
-                // Mise à jour du nom (optionnelle)
-                try {
-                    await firebaseAuth.updateProfile(userCredential.user, {
-                        displayName: name
-                    });
-                    showMessage(`Bienvenue ${name} ! Compte créé avec succès`, false);
-                } catch {
-                    showMessage('Compte créé ! (Le nom n\'a pas pu être enregistré)', false);
-                }
-
-                // Reset et bascule vers login
-                document.getElementById('registerForm').reset();
-                document.getElementById('registerForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('hidden');
-                document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
-                document.getElementById('login-email').value = email;
-                
-            } catch (error) {
-                const errors = {
-                    'auth/email-already-in-use': 'Email déjà utilisé',
-                    'auth/invalid-email': 'Email invalide',
-                    'auth/weak-password': 'Mot de passe trop faible'
-                };
-                showMessage(errors[error.code] || 'Erreur lors de l\'inscription');
-            }
-        });
-
-        // Mot de passe oublié
-        document.getElementById('forgot-password').addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value || prompt('Entrez votre email:');
-            if (email) {
-                firebaseAuth.sendPasswordResetEmail(firebaseAuth.auth, email)
-                    .then(() => showMessage('Email de réinitialisation envoyé', false))
-                    .catch(() => showMessage('Erreur lors de l\'envoi'));
-            }
-        });
-
-        // Connexion Google
-        document.getElementById('google-signin').addEventListener('click', () => {
-            firebaseAuth.signInWithPopup(firebaseAuth.auth, firebaseAuth.googleProvider)
-                .then(() => {
-                    showMessage('Connexion Google réussie !', false);
-                    setTimeout(() => window.location.href = 'index.html', 1500);
-                })
-                .catch(error => {
-                    showMessage(error.code === 'auth/popup-closed-by-user' 
-                        ? 'Connexion annulée' 
-                        : 'Erreur Google');
-                });
         });
     </script>
 </body>
