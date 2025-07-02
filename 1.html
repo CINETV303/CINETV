@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squid Game S03 EP01 | CinéTV</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
     <script>
@@ -13,9 +10,10 @@
         gtag('config', 'G-5YGXCXLV6N');
     </script>
     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squid Game S03 EP01 | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Import de la configuration Firebase -->
-    <script type="module" src="./firebase-config.js"></script>
     <style>
         * {
             margin: 0;
@@ -331,40 +329,6 @@
             font-size: 24px;
             cursor: pointer;
         }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f0f1b;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(233, 69, 96, 0.3);
-            border-radius: 50%;
-            border-top-color: #e94560;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: #aaa;
-            font-size: 1rem;
-        }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -418,12 +382,7 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="spinner"></div>
-        <div class="loading-text">Vérification de l'authentification...</div>
-    </div>
-
+    <!-- Navigation simplifiée -->
     <nav class="navbar">
         <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
         <div class="search-box">
@@ -432,7 +391,9 @@
         </div>
     </nav>
     
+    <!-- Main Content -->
     <div class="main-container">
+        <!-- Player Section -->
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
@@ -460,6 +421,7 @@
             </div>
         </section>
         
+        <!-- Episodes Grid -->
         <section class="episodes-grid">
             <h2 class="section-title">Tous les Épisodes</h2>
             <div class="episodes-container">
@@ -496,6 +458,7 @@
         </section>
     </div>
     
+    <!-- Footer -->
     <footer>
         <div class="copyright">
             &copy; 2025 CINETV. Tous droits réservés.
@@ -539,128 +502,110 @@
         </div>
     </div>
 
-    <script type="module">
-        // Import des fonctions Firebase nécessaires
-        import { auth, onAuthStateChanged } from './firebase-config.js';
-
-        // Vérification de l'authentification
-        const loadingScreen = document.getElementById('loadingScreen');
-
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                // Si non connecté, rediriger vers la page de connexion
-                window.location.href = 'index.html';
-            } else {
-                // Si connecté, afficher le contenu
-                loadingScreen.style.display = 'none';
-                document.body.style.visibility = 'visible';
-                initializePage();
+    <script>
+        // Fonctionnalité de recherche basique
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm.trim() !== '') {
+                alert('Résultats de recherche pour: ' + searchTerm + '\n\nCette fonctionnalité est en démonstration. Dans une application réelle, cela afficherait les résultats correspondants.');
             }
         });
 
-        // Masquer le contenu par défaut
-        document.body.style.visibility = 'hidden';
+        // Permettre la recherche avec la touche Entrée
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('searchButton').click();
+            }
+        });
 
-        function initializePage() {
-            // Fonctionnalité de recherche
-            document.getElementById('searchButton').addEventListener('click', function() {
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-                if (searchTerm.trim() !== '') {
-                    alert('Résultats de recherche pour: ' + searchTerm + '\n\nCette fonctionnalité est en démonstration. Dans une application réelle, cela afficherait les résultats correspondants.');
-                }
-            });
-
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('searchButton').click();
-                }
-            });
-
-            // Fonctionnalité de like
-            const likeButton = document.getElementById('likeButton');
-            const likeCount = document.getElementById('likeCount');
+        // Fonctionnalité de like avec stockage local
+        const likeButton = document.getElementById('likeButton');
+        const likeCount = document.getElementById('likeCount');
+        
+        // Charger les likes depuis le localStorage ou initialiser à 0
+        let likes = localStorage.getItem('videoLikes') ? parseInt(localStorage.getItem('videoLikes')) : 0;
+        let userLiked = localStorage.getItem('userLiked') === 'true';
+        
+        // Mettre à jour l'affichage initial
+        updateLikeDisplay();
+        
+        likeButton.addEventListener('click', function() {
+            if (userLiked) {
+                likes--;
+                userLiked = false;
+            } else {
+                likes++;
+                userLiked = true;
+            }
             
-            let likes = localStorage.getItem('squidGameLikes') ? parseInt(localStorage.getItem('squidGameLikes')) : 0;
-            let userLiked = localStorage.getItem('userLikedSquidGame') === 'true';
+            // Sauvegarder dans le localStorage
+            localStorage.setItem('videoLikes', likes);
+            localStorage.setItem('userLiked', userLiked);
             
             updateLikeDisplay();
+        });
+        
+        function updateLikeDisplay() {
+            likeCount.textContent = likes;
             
-            likeButton.addEventListener('click', function() {
-                if (userLiked) {
-                    likes--;
-                    userLiked = false;
-                } else {
-                    likes++;
-                    userLiked = true;
-                }
-                
-                localStorage.setItem('squidGameLikes', likes);
-                localStorage.setItem('userLikedSquidGame', userLiked);
-                
-                updateLikeDisplay();
-            });
-            
-            function updateLikeDisplay() {
-                likeCount.textContent = likes;
-                
-                if (userLiked) {
-                    likeButton.innerHTML = '<i class="fas fa-heart" style="color:#e94560"></i> J\'aime';
-                } else {
-                    likeButton.innerHTML = '<i class="far fa-heart"></i> J\'aime';
-                }
+            if (userLiked) {
+                likeButton.innerHTML = '<i class="fas fa-heart" style="color:#e94560"></i> J\'aime';
+            } else {
+                likeButton.innerHTML = '<i class="far fa-heart"></i> J\'aime';
             }
+        }
 
-            // Gestion de la fenêtre de partage
-            const shareModal = document.getElementById('shareModal');
-            const shareButton = document.getElementById('shareButton');
-            const closeShare = document.getElementById('closeShare');
-            
-            shareButton.addEventListener('click', function() {
-                shareModal.style.display = 'flex';
-            });
-            
-            closeShare.addEventListener('click', function() {
+        // Gestion de la fenêtre de partage
+        const shareModal = document.getElementById('shareModal');
+        const shareButton = document.getElementById('shareButton');
+        const closeShare = document.getElementById('closeShare');
+        
+        shareButton.addEventListener('click', function() {
+            shareModal.style.display = 'flex';
+        });
+        
+        closeShare.addEventListener('click', function() {
+            shareModal.style.display = 'none';
+        });
+        
+        // Fermer la fenêtre en cliquant à l'extérieur
+        window.addEventListener('click', function(event) {
+            if (event.target === shareModal) {
+                shareModal.style.display = 'none';
+            }
+        });
+        
+        // Fonctionnalités de partage
+        const shareFacebook = document.getElementById('shareFacebook');
+        const shareTwitter = document.getElementById('shareTwitter');
+        const shareWhatsapp = document.getElementById('shareWhatsapp');
+        const shareLink = document.getElementById('shareLink');
+        
+        const pageUrl = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent('Regardez Squid Game S03 EP01 sur CinéTV');
+        
+        shareFacebook.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank');
+        });
+        
+        shareTwitter.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`, '_blank');
+        });
+        
+        shareWhatsapp.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://wa.me/?text=${title}%20${pageUrl}`, '_blank');
+        });
+        
+        shareLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Lien copié dans le presse-papiers !');
                 shareModal.style.display = 'none';
             });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === shareModal) {
-                    shareModal.style.display = 'none';
-                }
-            });
-            
-            // Fonctionnalités de partage
-            const shareFacebook = document.getElementById('shareFacebook');
-            const shareTwitter = document.getElementById('shareTwitter');
-            const shareWhatsapp = document.getElementById('shareWhatsapp');
-            const shareLink = document.getElementById('shareLink');
-            
-            const pageUrl = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Regardez Squid Game S03 EP01 sur CinéTV');
-            
-            shareFacebook.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank');
-            });
-            
-            shareTwitter.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`, '_blank');
-            });
-            
-            shareWhatsapp.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open(`https://wa.me/?text=${title}%20${pageUrl}`, '_blank');
-            });
-            
-            shareLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('Lien copié dans le presse-papiers !');
-                    shareModal.style.display = 'none';
-                });
-            });
-        }
+        });
     </script>
 </body>
 </html>
