@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEVA A | CinéTV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
     <script>
@@ -13,6 +12,9 @@
       gtag('js', new Date());
       gtag('config', 'G-5YGXCXLV6N');
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Import de la configuration Firebase -->
+    <script type="module" src="./firebase-config.js"></script>
     <style>
         * {
             margin: 0;
@@ -321,6 +323,40 @@
             font-style: italic;
         }
 
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f0f1b;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(233, 69, 96, 0.3);
+            border-radius: 50%;
+            border-top-color: #e94560;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #aaa;
+            font-size: 1rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
@@ -375,6 +411,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <div class="loading-text">Vérification de l'authentification...</div>
+    </div>
+
     <nav class="navbar">
         <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
         <div class="search-box">
@@ -475,105 +517,128 @@
         </div>
     </div>
 
-    <script>
-        // Fonctionnalité de recherche
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if (searchTerm.trim() !== '') {
-                alert('Résultats de recherche pour: ' + searchTerm + '\n\nCette fonctionnalité est en démonstration. Dans une application réelle, cela afficherait les résultats correspondants.');
-            }
-        });
+    <script type="module">
+        // Import des fonctions Firebase nécessaires
+        import { auth, onAuthStateChanged } from './firebase-config.js';
 
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('searchButton').click();
-            }
-        });
+        // Vérification de l'authentification
+        const loadingScreen = document.getElementById('loadingScreen');
 
-        // Fonctionnalité de like
-        const likeButton = document.getElementById('likeButton');
-        const likeCount = document.getElementById('likeCount');
-        
-        let likes = localStorage.getItem('devaALikes') ? parseInt(localStorage.getItem('devaALikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedDevaA') === 'true';
-        
-        updateLikeDisplay();
-        
-        likeButton.addEventListener('click', function() {
-            if (userLiked) {
-                likes--;
-                userLiked = false;
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // Si non connecté, rediriger vers la page de connexion
+                window.location.href = 'index.html';
             } else {
-                likes++;
-                userLiked = true;
+                // Si connecté, afficher le contenu
+                loadingScreen.style.display = 'none';
+                document.body.style.visibility = 'visible';
+                initializePage();
             }
+        });
+
+        // Masquer le contenu par défaut
+        document.body.style.visibility = 'hidden';
+
+        function initializePage() {
+            // Fonctionnalité de recherche
+            document.getElementById('searchButton').addEventListener('click', function() {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                if (searchTerm.trim() !== '') {
+                    alert('Résultats de recherche pour: ' + searchTerm + '\n\nCette fonctionnalité est en démonstration. Dans une application réelle, cela afficherait les résultats correspondants.');
+                }
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('searchButton').click();
+                }
+            });
+
+            // Fonctionnalité de like
+            const likeButton = document.getElementById('likeButton');
+            const likeCount = document.getElementById('likeCount');
             
-            localStorage.setItem('devaALikes', likes);
-            localStorage.setItem('userLikedDevaA', userLiked);
+            let likes = localStorage.getItem('devaALikes') ? parseInt(localStorage.getItem('devaALikes')) : 0;
+            let userLiked = localStorage.getItem('userLikedDevaA') === 'true';
             
             updateLikeDisplay();
-        });
-        
-        function updateLikeDisplay() {
-            likeCount.textContent = likes;
             
-            if (userLiked) {
-                likeButton.innerHTML = '<i class="fas fa-heart" style="color:#e94560"></i> J\'aime';
-            } else {
-                likeButton.innerHTML = '<i class="far fa-heart"></i> J\'aime';
+            likeButton.addEventListener('click', function() {
+                if (userLiked) {
+                    likes--;
+                    userLiked = false;
+                } else {
+                    likes++;
+                    userLiked = true;
+                }
+                
+                localStorage.setItem('devaALikes', likes);
+                localStorage.setItem('userLikedDevaA', userLiked);
+                
+                updateLikeDisplay();
+            });
+            
+            function updateLikeDisplay() {
+                likeCount.textContent = likes;
+                
+                if (userLiked) {
+                    likeButton.innerHTML = '<i class="fas fa-heart" style="color:#e94560"></i> J\'aime';
+                } else {
+                    likeButton.innerHTML = '<i class="far fa-heart"></i> J\'aime';
+                }
             }
-        }
 
-        // Gestion de la fenêtre de partage
-        const shareModal = document.getElementById('shareModal');
-        const shareButton = document.getElementById('shareButton');
-        const closeShare = document.getElementById('closeShare');
-        
-        shareButton.addEventListener('click', function() {
-            shareModal.style.display = 'flex';
-        });
-        
-        closeShare.addEventListener('click', function() {
-            shareModal.style.display = 'none';
-        });
-        
-        window.addEventListener('click', function(event) {
-            if (event.target === shareModal) {
-                shareModal.style.display = 'none';
-            }
-        });
-        
-        // Fonctionnalités de partage
-        const shareFacebook = document.getElementById('shareFacebook');
-        const shareTwitter = document.getElementById('shareTwitter');
-        const shareWhatsapp = document.getElementById('shareWhatsapp');
-        const shareLink = document.getElementById('shareLink');
-        
-        const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez DEVA A sur CinéTV');
-        
-        shareFacebook.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank');
-        });
-        
-        shareTwitter.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`, '_blank');
-        });
-        
-        shareWhatsapp.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open(`https://wa.me/?text=${title}%20${pageUrl}`, '_blank');
-        });
-        
-        shareLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Lien copié dans le presse-papiers !');
+            // Gestion de la fenêtre de partage
+            const shareModal = document.getElementById('shareModal');
+            const shareButton = document.getElementById('shareButton');
+            const closeShare = document.getElementById('closeShare');
+            
+            shareButton.addEventListener('click', function() {
+                shareModal.style.display = 'flex';
+            });
+            
+            closeShare.addEventListener('click', function() {
                 shareModal.style.display = 'none';
             });
-        });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === shareModal) {
+                    shareModal.style.display = 'none';
+                }
+            });
+            
+            // Fonctionnalités de partage
+            const shareFacebook = document.getElementById('shareFacebook');
+            const shareTwitter = document.getElementById('shareTwitter');
+            const shareWhatsapp = document.getElementById('shareWhatsapp');
+            const shareLink = document.getElementById('shareLink');
+            
+            const pageUrl = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Regardez DEVA A sur CinéTV');
+            
+            shareFacebook.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank');
+            });
+            
+            shareTwitter.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`, '_blank');
+            });
+            
+            shareWhatsapp.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(`https://wa.me/?text=${title}%20${pageUrl}`, '_blank');
+            });
+            
+            shareLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Lien copié dans le presse-papiers !');
+                    shareModal.style.display = 'none';
+                });
+            });
+        }
     </script>
 </body>
 </html>

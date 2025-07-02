@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-5YGXCXLV6N');
-    </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINETV - Streaming de Films et Séries</title>
+    <title>CINETV - Connexion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -28,9 +19,11 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
-        /* Navigation */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -57,94 +50,181 @@
             margin-right: 10px;
         }
         
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 5px 10px;
-            width: 200px;
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+            width: 90%;
         }
         
-        .search-box input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            width: 100%;
-            padding: 5px;
-        }
-        
-        .search-box i {
-            color: #ccc;
-            cursor: pointer;
-        }
-        
-        /* Menu */
-        .menu {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .menu-item {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        
-        .menu-item:hover {
-            color: #e94560;
-        }
-        
-        /* Hero Banner */
-        .hero-banner {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKuaXvXPGcKNvtX_o7FKLQ2xqYGiwjO9V22URd74L5N_WKuVIJ&s');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 5%;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-title {
-            font-size: 3rem;
+        .auth-title {
+            font-size: 2rem;
             margin-bottom: 15px;
             color: #e94560;
-            text-shadow: 0 0 10px rgba(0,0,0,0.7);
-            animation: fadeIn 1.5s ease-in-out;
+            text-align: center;
         }
         
-        .hero-description {
-            max-width: 600px;
-            margin-bottom: 20px;
+        .auth-description {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #aaa;
+            font-size: 0.95rem;
             line-height: 1.5;
-            animation: fadeIn 2s ease-in-out;
         }
         
-        .hero-btn {
-            background: #e94560;
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
             color: white;
-            border: none;
-            padding: 10px 25px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
-            width: fit-content;
-            animation: fadeIn 2.5s ease-in-out;
+            transition: all 0.3s;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            width: 100%;
         }
         
-        .hero-btn:hover {
+        .btn-primary {
+            background: #e94560;
+            color: white;
+        }
+        
+        .btn-primary:hover {
             background: #d13354;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #aaa;
+            margin-top: 15px;
+        }
+        
+        .btn-secondary:hover {
+            color: #e94560;
+            border-color: #e94560;
+            transform: translateY(-2px);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: #e94560;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .auth-footer a:hover {
+            color: #d13354;
+            text-decoration: underline;
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin: 20px 0;
+            color: #aaa;
+        }
+        
+        .form-switch a {
+            color: #e94560;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .form-switch a:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .auth-message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            background-color: rgba(233, 69, 96, 0.2);
+            border: 1px solid #e94560;
+            color: #ff6b81;
+        }
+        
+        .success-message {
+            background-color: rgba(46, 213, 115, 0.2);
+            border: 1px solid #2ed573;
+            color: #7bed9f;
+        }
+        
+        .auth-providers {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .auth-provider-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .auth-provider-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-provider-btn.google {
+            background: #4285F4;
         }
         
         @keyframes fadeIn {
@@ -152,89 +232,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Main Content */
-        .main-container {
-            padding: 20px 5%;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            margin: 30px 0 20px;
-            color: #e94560;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title i {
-            margin-right: 10px;
-        }
-        
-        .movies-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .movie-card {
-            background: #1a1a2e;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-        }
-        
-        .movie-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
-        
-        .movie-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s;
-        }
-        
-        .movie-card:hover img {
-            transform: scale(1.1);
-        }
-        
-        .movie-info {
-            padding: 12px;
-        }
-        
-        .movie-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: #e94560;
-        }
-        
-        .movie-category {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-        
-        .movie-interpreter {
-            font-size: 0.75rem;
-            color: #e94560;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* Footer */
         footer {
             background: #0d0d15;
             padding: 30px 5%;
             text-align: center;
-            margin-top: 50px;
+            margin-top: auto;
             position: relative;
             z-index: 1;
         }
@@ -271,254 +273,115 @@
             font-style: italic;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero-banner {
-                height: 300px;
+            .auth-container {
+                padding: 20px;
             }
             
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .movies-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            
-            .movie-card img {
-                height: 150px;
-            }
-            
-            .menu {
-                display: none;
-            }
-            
-            .search-box {
-                width: 150px;
+            .auth-title {
+                font-size: 1.8rem;
             }
         }
         
         @media (max-width: 480px) {
-            .hero-banner {
-                height: 250px;
-            }
-            
-            .hero-title {
+            .auth-title {
                 font-size: 1.5rem;
             }
             
-            .movies-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+            .auth-description {
+                font-size: 0.85rem;
             }
             
-            .movie-card img {
-                height: 120px;
+            .form-control {
+                padding: 10px 12px;
             }
             
-            .section-title {
-                font-size: 1.2rem;
-                margin: 20px 0 15px;
-            }
-            
-            .search-box {
-                width: 120px;
+            .btn {
+                padding: 10px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
-        <div class="menu">
-            <a href="#series" class="menu-item">Séries</a>
-            <a href="#horreur" class="menu-item">Horreur</a>
-            <a href="#action" class="menu-item">Action</a>
-            <a href="#autres" class="menu-item">Autres</a>
-        </div>
-        <div class="search-box">
-            <input type="text" placeholder="Rechercher..." id="searchInput">
-            <i class="fas fa-search" id="searchButton"></i>
-        </div>
     </nav>
     
-    <!-- Hero Banner for Squid Game -->
-    <section class="hero-banner">
-        <h1 class="hero-title">SQUID GAME - Saison 3</h1>
-        <p class="hero-description">La compétition mortelle revient avec de nouveaux jeux et de nouveaux participants désespérés. Qui survivra cette fois-ci ?</p>
-        <a href="1.html" class="hero-btn">Regarder maintenant</a>
-    </section>
-    
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Séries Section -->
-        <h2 class="section-title" id="series"><i class="fas fa-tv"></i> SÉRIES POPULAIRES</h2>
-        <div class="movies-container">
-            <!-- Squid Game -->
-            <a href="1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKuaXvXPGcKNvtX_o7FKLQ2xqYGiwjO9V22URd74L5N_WKuVIJ&s" alt="Squid Game S03">
-                <div class="movie-info">
-                    <div class="movie-name">Squid Game S03</div>
-                    <div class="movie-category">Drame, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-        </div>
+    <div class="auth-container">
+        <h1 class="auth-title" id="form-title"><i class="fas fa-sign-in-alt"></i> Connexion</h1>
         
-        <!-- Films d'horreur Section -->
-        <h2 class="section-title" id="horreur"><i class="fas fa-ghost"></i> FILMS D'HORREUR</h2>
-        <div class="movies-container">
-            <!-- UNTIL DOWN -->
-            <a href="UNTIL DOWN.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DOWN">
-                <div class="movie-info">
-                    <div class="movie-name">UNTIL DOWN</div>
-                    <div class="movie-category">Horreur, Survival</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
-                </div>
-            </a>
-            
-            <!-- SINNERS -->
-            <a href="SINNERS_A.html" class="movie-card">
-                <img src="https://resizing.flixster.com/VR3Tfr9zpNllsU6RchvnbhGmPkc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2VhOTdiZDNjLTlmODQtNGNlYi1iZWYwLWNkYjY2YmI5YzZjYS5qcGc=" alt="SINNERS">
-                <div class="movie-info">
-                    <div class="movie-name">SINNERS</div>
-                    <div class="movie-category">Thriller, Drame</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- IMMACULÉE -->
-            <a href="IMMACULATE.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CDkg1TWQgBW0ZYrgBrytw6kMRTmqkXyjNUuSsfv2yUou9BY&s" alt="IMMACULÉE">
-                <div class="movie-info">
-                    <div class="movie-name">IMMACULÉE</div>
-                    <div class="movie-category">Horreur, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-        </div>
+        <p class="auth-description">
+            Inscrivez-vous pour accéder à nos contenus exclusifs<br>
+            Films, séries et documentaires en illimité
+        </p>
         
-        <!-- Films d'action Section -->
-        <h2 class="section-title" id="action"><i class="fas fa-explosion"></i> FILMS D'ACTION</h2>
-        <div class="movies-container">
-            <!-- OLD GUARD -->
-            <a href="OLD_GUARD_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
-                <div class="movie-info">
-                    <div class="movie-name">OLD GUARD</div>
-                    <div class="movie-category">Action, Aventure</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- JAAT -->
-            <a href="JAAT_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdsWHig2iEwsiXUzdSPlupp69X2icogQzKwwMHhfDOC5D-Foo&s" alt="JAAT">
-                <div class="movie-info">
-                    <div class="movie-name">JAAT</div>
-                    <div class="movie-category">Action, Science-fiction</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DIABLO -->
-            <a href="DIABLO_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR74U9Z3GdSY_Fa1BVohQ8QRtPq5aX6PvgcBTeLPYHCmbIBsJ7ou73Bdw&usqp=CAE&s" alt="DIABLO">
-                <div class="movie-info">
-                    <div class="movie-name">DIABLO</div>
-                    <div class="movie-category">Horreur, Mystère</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- 13 SINS -->
-            <a href="13_SINS.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0u34cPv2k6jqOYhCniLKCoJuB8CNinnV0hfhQomAKlWXa_9Q&s" alt="13 SINS">
-                <div class="movie-info">
-                    <div class="movie-name">13 SINS</div>
-                    <div class="movie-category">Thriller, Horreur</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DEVA -->
-            <a href="DEVA_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA">
-                <div class="movie-info">
-                    <div class="movie-name">DEVA</div>
-                    <div class="movie-category">Action, Fantastique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- PUSHPA -->
-            <a href="PUSHPA_2.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLw236lGOi1DDJwqX9PgJIS2d4Ls667T-948heqpL6-I20SE_&s" alt="PUSHPA">
-                <div class="movie-info">
-                    <div class="movie-name">PUSHPA</div>
-                    <div class="movie-category">Action, Drame</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- CLEANER -->
-            <a href="CLEANER.html" class="movie-card">
-                <img src="http://www.impawards.com/intl/uk/2025/posters/cleaner_ver2.jpg" alt="CLEANER">
-                <div class="movie-info">
-                    <div class="movie-name">CLEANER</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
-                </div>
-            </a>
-            
-            <!-- RUSTOM -->
-            <a href="RUSTOM_A_1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM">
-                <div class="movie-info">
-                    <div class="movie-name">RUSTOM</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- SYE RAA NARASIMHA REDDY -->
-            <a href="SYE_RAA.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrw2LUmKUwiCe0J4LXDyPFaCBbvwKLcRIFIV6DBbxqTtL2PjNl&s" alt="SYE RAA NARASIMHA REDDY">
-                <div class="movie-info">
-                    <div class="movie-name">SYE RAA NARASIMHA REDDY</div>
-                    <div class="movie-category">Action, Historique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-        </div>
+        <div id="auth-message" class="auth-message hidden"></div>
         
-        <!-- Autres Section -->
-        <h2 class="section-title" id="autres"><i class="fas fa-ellipsis-h"></i> AUTRES</h2>
-        <div class="movies-container">
-            <!-- STRAW -->
-            <a href="STRAW_A.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
-                <div class="movie-info">
-                    <div class="movie-name">STRAW</div>
-                    <div class="movie-category">Horreur, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="login-email">Adresse Email</label>
+                <input type="email" id="login-email" class="form-control" placeholder="Entrez votre email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="login-password">Mot de passe</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Entrez votre mot de passe" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+            
+            <div class="form-switch">
+                Pas de compte ? <a id="switch-to-register">S'inscrire</a>
+            </div>
+            
+            <div class="auth-footer">
+                <a href="#" id="forgot-password">Mot de passe oublié ?</a>
+            </div>
+        </form>
+        
+        <form id="registerForm" class="hidden">
+            <div class="form-group">
+                <label for="register-name">Nom complet</label>
+                <input type="text" id="register-name" class="form-control" placeholder="Entrez votre nom complet" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="register-email">Adresse Email</label>
+                <input type="email" id="register-email" class="form-control" placeholder="Entrez votre email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="register-password">Mot de passe</label>
+                <input type="password" id="register-password" class="form-control" placeholder="Créez un mot de passe (min. 6 caractères)" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="register-confirm-password">Confirmez le mot de passe</label>
+                <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirmez votre mot de passe" required minlength="6">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+            
+            <div class="form-switch">
+                Déjà un compte ? <a id="switch-to-login">Se connecter</a>
+            </div>
+        </form>
+        
+        <div style="text-align: center; margin: 20px 0; color: #555;">OU</div>
+        
+        <div class="auth-providers">
+            <button class="auth-provider-btn google" id="google-signin">
+                <i class="fab fa-google"></i> Continuer avec Google
+            </button>
         </div>
     </div>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="#" class="footer-link">Accueil</a>
-            <a href="#series" class="footer-link">Séries</a>
-            <a href="#horreur" class="footer-link">Horreur</a>
-            <a href="#action" class="footer-link">Action</a>
-            <a href="#autres" class="footer-link">Autres</a>
+            <a href="index.html" class="footer-link">Accueil</a>
             <a href="#" class="footer-link">À propos</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Conditions d'utilisation</a>
         </div>
         <div class="copyright">
             &copy; 2025 CINETV. Tous droits réservés.
@@ -528,18 +391,147 @@
         </div>
     </footer>
 
-    <script>
-        // Fonctionnalité de recherche
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if (searchTerm.trim() !== '') {
-                alert('Résultats de recherche pour: ' + searchTerm + '\n\nCette fonctionnalité est en démonstration. Dans une application réelle, cela afficherait les résultats correspondants.');
+    <!-- Import de la configuration Firebase -->
+    <script type="module" src="./firebase-config.js"></script>
+
+    <script type="module">
+        import { auth } from './firebase-config.js';
+        import { 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail,
+            signInWithPopup,
+            GoogleAuthProvider
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        // Initialisation du provider Google
+        const googleProvider = new GoogleAuthProvider();
+
+        // Afficher un message d'état
+        function showMessage(message, isError = true) {
+            const authMessage = document.getElementById('auth-message');
+            authMessage.textContent = message;
+            authMessage.className = isError ? 'auth-message error-message' : 'auth-message success-message';
+            authMessage.classList.remove('hidden');
+            
+            setTimeout(() => {
+                authMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Redirection après authentification
+        function handleSuccessfulAuth() {
+            showMessage('Connexion réussie ! Redirection vers votre espace...', false);
+            setTimeout(() => {
+                window.location.href = '0.html';
+            }, 2000);
+        }
+
+        // Basculer entre les formulaires
+        document.getElementById('switch-to-register').addEventListener('click', function() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-user-plus"></i> Inscription';
+            document.getElementById('auth-message').classList.add('hidden');
+        });
+        
+        document.getElementById('switch-to-login').addEventListener('click', function() {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
+            document.getElementById('auth-message').classList.add('hidden');
+        });
+        
+        // Connexion par email/mot de passe
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    handleSuccessfulAuth();
+                })
+                .catch((error) => {
+                    let errorMessage;
+                    switch(error.code) {
+                        case 'auth/invalid-email': errorMessage = 'Adresse email invalide'; break;
+                        case 'auth/user-disabled': errorMessage = 'Ce compte est désactivé'; break;
+                        case 'auth/user-not-found': errorMessage = 'Aucun compte avec cet email'; break;
+                        case 'auth/wrong-password': errorMessage = 'Mot de passe incorrect'; break;
+                        default: errorMessage = 'Erreur de connexion';
+                    }
+                    showMessage(errorMessage);
+                });
+        });
+        
+        // Inscription
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                showMessage('Les mots de passe ne correspondent pas');
+                return;
+            }
+            
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    return userCredential.user.updateProfile({
+                        displayName: name
+                    });
+                })
+                .then(() => {
+                    showMessage('Inscription réussie ! Vous êtes maintenant connecté.', false);
+                    handleSuccessfulAuth();
+                })
+                .catch((error) => {
+                    let errorMessage;
+                    switch(error.code) {
+                        case 'auth/email-already-in-use': errorMessage = 'Email déjà utilisé'; break;
+                        case 'auth/invalid-email': errorMessage = 'Email invalide'; break;
+                        case 'auth/weak-password': errorMessage = 'Mot de passe trop faible'; break;
+                        default: errorMessage = "Erreur d'inscription";
+                    }
+                    showMessage(errorMessage);
+                });
+        });
+        
+        // Mot de passe oublié
+        document.getElementById('forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value || prompt('Entrez votre email pour réinitialiser votre mot de passe:');
+            
+            if (email) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        showMessage('Email de réinitialisation envoyé à ' + email, false);
+                    })
+                    .catch(() => {
+                        showMessage("Erreur lors de l'envoi de l'email");
+                    });
             }
         });
+        
+        // Connexion Google
+        document.getElementById('google-signin').addEventListener('click', function() {
+            signInWithPopup(auth, googleProvider)
+                .then(() => {
+                    handleSuccessfulAuth();
+                })
+                .catch(() => {
+                    showMessage('Erreur lors de la connexion avec Google');
+                });
+        });
 
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('searchButton').click();
+        // Vérification si déjà connecté
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.location.href = '0.html';
             }
         });
     </script>
