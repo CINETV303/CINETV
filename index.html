@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CINETV - Connexion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, 
+                 createUserWithEmailAndPassword, 
+                 signInWithEmailAndPassword, 
+                 sendPasswordResetEmail,
+                 signInWithPopup,
+                 GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB77EmeaPTvtXCH4EL-1E1SgmyW6Yz9lLI",
+            authDomain: "cinetv257.firebaseapp.com",
+            projectId: "cinetv257",
+            storageBucket: "cinetv257.firebasestorage.app",
+            messagingSenderId: "402664770835",
+            appId: "1:402664770835:web:1adaea98f40ca609645ee6",
+            measurementId: "G-194WCGXQSH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        window.firebaseAuth = {
+            auth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail,
+            signInWithPopup,
+            googleProvider
+        };
+    </script>
     <style>
         * {
             margin: 0;
@@ -391,22 +423,7 @@
         </div>
     </footer>
 
-    <!-- Import de la configuration Firebase -->
-    <script type="module" src="./firebase-config.js"></script>
-
-    <script type="module">
-        import { auth } from './firebase-config.js';
-        import { 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword,
-            sendPasswordResetEmail,
-            signInWithPopup,
-            GoogleAuthProvider
-        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-        // Initialisation du provider Google
-        const googleProvider = new GoogleAuthProvider();
-
+    <script>
         // Afficher un message d'état
         function showMessage(message, isError = true) {
             const authMessage = document.getElementById('auth-message');
@@ -423,7 +440,7 @@
         function handleSuccessfulAuth() {
             showMessage('Connexion réussie ! Redirection vers votre espace...', false);
             setTimeout(() => {
-                window.location.href = '0.html';
+                window.location.href = '0.html'; // Redirection vers 0.html
             }, 2000);
         }
 
@@ -448,7 +465,7 @@
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
             
-            signInWithEmailAndPassword(auth, email, password)
+            firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password)
                 .then(() => {
                     handleSuccessfulAuth();
                 })
@@ -478,8 +495,9 @@
                 return;
             }
             
-            createUserWithEmailAndPassword(auth, email, password)
+            firebaseAuth.createUserWithEmailAndPassword(firebaseAuth.auth, email, password)
                 .then((userCredential) => {
+                    // Mise à jour du nom utilisateur
                     return userCredential.user.updateProfile({
                         displayName: name
                     });
@@ -506,7 +524,7 @@
             const email = document.getElementById('login-email').value || prompt('Entrez votre email pour réinitialiser votre mot de passe:');
             
             if (email) {
-                sendPasswordResetEmail(auth, email)
+                firebaseAuth.sendPasswordResetEmail(firebaseAuth.auth, email)
                     .then(() => {
                         showMessage('Email de réinitialisation envoyé à ' + email, false);
                     })
@@ -518,21 +536,13 @@
         
         // Connexion Google
         document.getElementById('google-signin').addEventListener('click', function() {
-            signInWithPopup(auth, googleProvider)
+            firebaseAuth.signInWithPopup(firebaseAuth.auth, firebaseAuth.googleProvider)
                 .then(() => {
                     handleSuccessfulAuth();
                 })
                 .catch(() => {
                     showMessage('Erreur lors de la connexion avec Google');
                 });
-        });
-
-        // Vérification si déjà connecté
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = '0.html';
-            }
         });
     </script>
 </body>
