@@ -292,7 +292,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
+        <a href="index.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
     </nav>
     
     <div class="auth-container">
@@ -361,7 +361,7 @@
     
     <footer>
         <div class="footer-links">
-            <a href="0.html" class="footer-link">Accueil</a>
+            <a href="index.html" class="footer-link">Accueil</a>
             <a href="#" class="footer-link">À propos</a>
             <a href="#" class="footer-link">Contact</a>
             <a href="#" class="footer-link">Conditions d'utilisation</a>
@@ -436,9 +436,9 @@
                 }, 1500);
                 
             } catch (error) {
-                console.error(' inscription validée :', error);
+                console.error(' inscription invalidée :', error);
                 
-                let errorMessage = " inscription validée ";
+                let errorMessage = " inscription invalidée ";
                 switch(error.code) {
                     case 'auth/invalid-email':
                         errorMessage = "Format d'email invalide";
