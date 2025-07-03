@@ -436,9 +436,9 @@
                 }, 1500);
                 
             } catch (error) {
-                console.error('Erreur de connexion:', error);
+                console.error(' inscription validée :', error);
                 
-                let errorMessage = "Erreur de connexion";
+                let errorMessage = " inscription validée ";
                 switch(error.code) {
                     case 'auth/invalid-email':
                         errorMessage = "Format d'email invalide";
