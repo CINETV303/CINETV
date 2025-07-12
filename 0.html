@@ -11,7 +11,7 @@
     </script>
     
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CINETV - Streaming de Films et Séries</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -28,9 +28,51 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
+            padding-bottom: 60px; /* Espace pour la barre de navigation */
         }
         
-        /* Navigation */
+        /* Barre de navigation Instagram-like */
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item:hover {
+            color: #e94560;
+        }
+        
+        .premium-nav {
+            color: #ffd700;
+        }
+        
+        .download-nav {
+            color: #4CAF50;
+        }
+
+        /* Le reste de votre CSS existant reste inchangé */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -146,6 +188,11 @@
             font-weight: bold;
         }
         
+        .download-link {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
         /* Modal À propos */
         .modal {
             display: none;
@@ -187,6 +234,55 @@
         .modal-text {
             line-height: 1.6;
             margin-bottom: 15px;
+        }
+        
+        /* Contact Modal */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .contact-modal-content {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-contact-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #e94560;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item i {
+            margin-right: 10px;
+            color: #e94560;
+            width: 20px;
+            text-align: center;
         }
         
         /* Hero Banner */
@@ -277,6 +373,7 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
+            position: relative;
         }
         
         .movie-card:hover {
@@ -319,6 +416,27 @@
             display: flex;
             align-items: center;
             gap: 5px;
+        }
+        
+        /* Badge Nouveauté */
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e94560;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         /* Search Results */
@@ -465,7 +583,9 @@
         <a href="#action" class="mobile-menu-item"><i class="fas fa-explosion"></i> Action</a>
         <a href="#autres" class="mobile-menu-item"><i class="fas fa-ellipsis-h"></i> Autres</a>
         <a href="premium.html" class="mobile-menu-item premium-link"><i class="fas fa-crown"></i> Premium</a>
+        <a href="download_app.html" class="mobile-menu-item download-link"><i class="fas fa-download"></i> Download App</a>
         <a href="#" class="mobile-menu-item" id="aboutLink"><i class="fas fa-info-circle"></i> À propos</a>
+        <a href="#" class="mobile-menu-item" id="mobileContactLink"><i class="fas fa-envelope"></i> Contacter</a>
     </div>
     
     <!-- Modal À propos -->
@@ -485,6 +605,28 @@
                 Abonnez-vous à notre offre Premium pour profiter de contenus exclusifs, 
                 d'une lecture sans publicité et de fonctionnalités avancées.
             </p>
+        </div>
+    </div>
+    
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-modal-content">
+            <span class="close-contact-modal" id="closeContactModal">&times;</span>
+            <h2 class="modal-title">Contactez-nous</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email: audrypaulin65@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>Téléphone: 25776389163</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: 76389163</span>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -586,6 +728,39 @@
                 </div>
             </a>
             
+            <!-- OLD GUARD 2 -->
+            <a href="OLD_GUARD_2_A.html" class="movie-card">
+                <img src="guard.png" alt="OLD GUARD 2">
+                <div class="new-badge">Nouveauté</div>
+                <div class="movie-info">
+                    <div class="movie-name">OLD GUARD 2</div>
+                    <div class="movie-category">Action, Aventure</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <!-- HEAD OF STATE -->
+            <a href="HEAD_OF_STATE_A.html" class="movie-card">
+                <img src="STATE.png" alt="HEAD OF STATE">
+                <div class="new-badge">Nouveauté</div>
+                <div class="movie-info">
+                    <div class="movie-name">HEAD OF STATE</div>
+                    <div class="movie-category">Action, Politique</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <!-- BALLERINA -->
+            <a href="BALLERINA_A.html" class="movie-card">
+                <img src="BALLERINA.png" alt="BALLERINA">
+                <div class="new-badge">Nouveauté</div>
+                <div class="movie-info">
+                    <div class="movie-name">BALLERINA</div>
+                    <div class="movie-category">Action, Thriller</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
             <!-- JAAT -->
             <a href="JAAT_A.html" class="movie-card">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdsWHig2iEwsiXUzdSPlupp69X2icogQzKwwMHhfDOC5D-Foo&s" alt="JAAT">
@@ -638,7 +813,7 @@
             
             <!-- CLEANER -->
             <a href="CLEANER.html" class="movie-card">
-                <img src="http://www.impawards.com/intl/uk/2025/posters/cleaner_ver2.jpg" alt="CLEANER">
+                <img src="cleanner.png" alt="CLEANER">
                 <div class="movie-info">
                     <div class="movie-name">CLEANER</div>
                     <div class="movie-category">Action, Thriller</div>
@@ -682,10 +857,29 @@
         </div>
     </div>
     
+    <!-- Bottom Navigation Bar (Instagram-like) -->
+    <div class="bottom-navbar">
+        <a href="#" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+        </a>
+        <a href="#" class="nav-item" id="bottomContactLink">
+            <i class="fas fa-envelope"></i>
+            <span>Contacter</span>
+        </a>
+        <a href="premium.html" class="nav-item premium-nav">
+            <i class="fas fa-crown"></i>
+            <span>Premium</span>
+        </a>
+        <a href="download_app.html" class="nav-item download-nav">
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+        </a>
+    </div>
+    
     <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="#" class="footer-link">Accueil</a>
             <a href="#" class="footer-link">À propos</a>
             <a href="premium.html" class="footer-link">Premium</a>
             <a href="#" class="footer-link">Contact</a>
@@ -722,9 +916,34 @@
             aboutModal.style.display = 'none';
         });
         
+        // Gestion de la modal Contact (depuis le menu mobile)
+        const mobileContactLink = document.getElementById('mobileContactLink');
+        // Gestion de la modal Contact (depuis la barre du bas)
+        const bottomContactLink = document.getElementById('bottomContactLink');
+        const contactModal = document.getElementById('contactModal');
+        const closeContactModal = document.getElementById('closeContactModal');
+        
+        mobileContactLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            contactModal.style.display = 'flex';
+            mobileMenu.classList.remove('active');
+        });
+        
+        bottomContactLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            contactModal.style.display = 'flex';
+        });
+        
+        closeContactModal.addEventListener('click', function() {
+            contactModal.style.display = 'none';
+        });
+        
         window.addEventListener('click', function(e) {
             if (e.target === aboutModal) {
                 aboutModal.style.display = 'none';
+            }
+            if (e.target === contactModal) {
+                contactModal.style.display = 'none';
             }
         });
         
@@ -789,6 +1008,24 @@
                 const searchTerm = document.getElementById('mobileSearchInput').value.toLowerCase();
                 performSearch(searchTerm);
                 mobileMenu.classList.remove('active');
+            }
+        });
+        
+        // Supprimer le badge "Nouveauté" après une semaine
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si une semaine s'est écoulée depuis la dernière visite
+            const lastVisit = localStorage.getItem('lastVisit');
+            const now = new Date().getTime();
+            const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 jours en millisecondes
+            
+            if (!lastVisit || now - lastVisit > oneWeek) {
+                // Afficher les badges nouveauté
+                localStorage.setItem('lastVisit', now);
+            } else {
+                // Masquer les badges nouveauté
+                document.querySelectorAll('.new-badge').forEach(badge => {
+                    badge.style.display = 'none';
+                });
             }
         });
     </script>
