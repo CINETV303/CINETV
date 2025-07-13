@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINETV - Bienvenue</title>
+    <title>CINETV - Welcom</title>
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
         * {
@@ -72,29 +72,38 @@
     </div>
 
     <script>
-        // Déterminer si c'est le jour (6h-18h) ou la nuit
-        const hour = new Date().getHours();
-        const isDayTime = hour >= 6 && hour < 18;
+        // Vérifier si l'utilisateur est déjà connecté dans le localStorage
+        const isLoggedIn = localStorage.getItem('cineTvUserLoggedIn') === 'true';
         
-        // Charger l'image appropriée
-        const splashImage = document.getElementById('splashImage');
-        splashImage.src = isDayTime ? 'splash1.png' : 'splash2.png';
-        
-        // Redirection après 5 secondes
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 5000);
-        
-        // Gestion des erreurs si l'image ne charge pas
-        splashImage.onerror = function() {
-            // Si une image ne charge pas, essayer l'autre
-            splashImage.src = splashImage.src.includes('splash1.png') ? 'splash2.png' : 'splash1.png';
+        if (isLoggedIn) {
+            // Rediriger immédiatement vers la page d'accueil si déjà connecté
+            window.location.href = '0.html';
+        } else {
+            // Sinon, continuer avec l'animation normale
+            // Déterminer si c'est le jour (6h-18h) ou la nuit
+            const hour = new Date().getHours();
+            const isDayTime = hour >= 6 && hour < 18;
             
-            // Si aucune image ne charge, rediriger immédiatement
-            splashImage.onerror = function() {
+            // Charger l'image appropriée
+            const splashImage = document.getElementById('splashImage');
+            splashImage.src = isDayTime ? 'splash1.png' : 'splash2.png';
+            
+            // Redirection après 5 secondes
+            setTimeout(() => {
                 window.location.href = 'login.html';
+            }, 5000);
+            
+            // Gestion des erreurs si l'image ne charge pas
+            splashImage.onerror = function() {
+                // Si une image ne charge pas, essayer l'autre
+                splashImage.src = splashImage.src.includes('splash1.png') ? 'splash2.png' : 'splash1.png';
+                
+                // Si aucune image ne charge, rediriger immédiatement
+                splashImage.onerror = function() {
+                    window.location.href = 'login.html';
+                };
             };
-        };
+        }
     </script>
 </body>
 </html>

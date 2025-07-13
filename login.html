@@ -456,7 +456,16 @@
             }, 5000);
         }
 
-        // Connexion avec email/mot de passe - Version DEBUGGÉE
+        // Fonction pour gérer la connexion réussie
+        function handleSuccessfulLogin() {
+            // Stocker l'état de connexion dans le localStorage
+            localStorage.setItem('cineTvUserLoggedIn', 'true');
+            
+            // Rediriger vers la page d'accueil
+            window.location.href = '0.html';
+        }
+
+        // Connexion avec email/mot de passe
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
@@ -471,10 +480,8 @@
                 
                 showAuthMessage('Connexion réussie ! Redirection vers l\'accueil...', false);
                 
-                // Redirection garantie après 1.5s
-                setTimeout(() => {
-                    window.location.href = '0.html';
-                }, 1500);
+                // Gérer la connexion réussie
+                handleSuccessfulLogin();
                 
             } catch (error) {
                 console.error('Erreur de connexion:', error);
@@ -505,7 +512,7 @@
             }
         });
 
-        // Inscription - Version DEBUGGÉE
+        // Inscription
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('register-name').value.trim();
@@ -547,12 +554,11 @@
                     showAuthMessage("Compte créé avec succès ! (Le nom n'a pas pu être enregistré)", false);
                 }
 
-                // Réinitialisation et bascule vers le formulaire de connexion
-                document.getElementById('registerForm').reset();
-                document.getElementById('registerForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('hidden');
-                document.getElementById('form-title').innerHTML = '<i class="fas fa-sign-in-alt"></i> Connexion';
-                document.getElementById('login-email').value = email;
+                // Stocker l'état de connexion dans le localStorage
+                localStorage.setItem('cineTvUserLoggedIn', 'true');
+                
+                // Rediriger vers la page d'accueil
+                window.location.href = '0.html';
                 
             } catch (error) {
                 console.error('Erreur inscription:', error);
@@ -585,9 +591,10 @@
             signInWithPopup(auth, googleProvider)
                 .then(() => {
                     showAuthMessage('Connexion Google réussie ! Redirection vers l\'accueil...', false);
-                    setTimeout(() => {
-                        window.location.href = '0.html';
-                    }, 1500);
+                    // Stocker l'état de connexion dans le localStorage
+                    localStorage.setItem('cineTvUserLoggedIn', 'true');
+                    // Rediriger vers la page d'accueil
+                    window.location.href = '0.html';
                 })
                 .catch((error) => {
                     console.error('Erreur Google SignIn:', error);
@@ -632,8 +639,18 @@
         auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log('Utilisateur déjà connecté:', user.email);
-                // Redirection automatique si déjà connecté (optionnel)
-                // window.location.href = '0.html';
+                // Stocker l'état de connexion dans le localStorage
+                localStorage.setItem('cineTvUserLoggedIn', 'true');
+                // Redirection automatique si déjà connecté
+                window.location.href = '0.html';
+            }
+        });
+
+        // Vérifier le localStorage au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('cineTvUserLoggedIn') === 'true';
+            if (isLoggedIn) {
+                window.location.href = '0.html';
             }
         });
     </script>
