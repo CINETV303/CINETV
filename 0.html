@@ -189,6 +189,11 @@
             color: #4CAF50;
             font-weight: bold;
         }
+
+        .logout-link {
+            color: #e94560;
+            font-weight: bold;
+        }
         
         .modal {
             display: none;
@@ -524,6 +529,7 @@
         <a href="download_app.html" class="mobile-menu-item download-link"><i class="fas fa-download"></i> Download App</a>
         <a href="#" class="mobile-menu-item" id="aboutLink"><i class="fas fa-info-circle"></i> À propos</a>
         <a href="#" class="mobile-menu-item" id="mobileContactLink"><i class="fas fa-envelope"></i> Contacter</a>
+        <a href="#" class="mobile-menu-item logout-link" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
     </div>
     
     <!-- Modal À propos -->
@@ -974,6 +980,27 @@
                 document.querySelectorAll('.new-badge').forEach(badge => {
                     badge.style.display = 'none';
                 });
+            }
+        });
+
+        // Gestion de la déconnexion
+        document.getElementById('logoutLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Supprimer l'état de connexion du localStorage
+            localStorage.removeItem('cineTvUserLoggedIn');
+            
+            // Rediriger vers la page de login
+            window.location.href = 'login.html';
+        });
+
+        // Vérifier si l'utilisateur est connecté au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('cineTvUserLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                // Rediriger vers la page de login si non connecté
+                window.location.href = 'login.html';
             }
         });
     </script>
