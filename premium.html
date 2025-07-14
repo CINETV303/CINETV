@@ -138,7 +138,7 @@
         
         .movie-card img {
             width: 100%;
-            height: 200px;
+            height: 150px; /* Taille réduite pour correspondre à 0.html */
             object-fit: cover;
             display: block;
         }
@@ -152,6 +152,20 @@
             margin-bottom: 5px;
             font-size: 0.9rem;
             color: #ffd700;
+        }
+        
+        .movie-category {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        
+        .movie-interpreter {
+            font-size: 0.75rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .premium-badge {
@@ -415,57 +429,33 @@
         <h2 style="color:#ffd700; margin-bottom:20px;"><i class="fas fa-film"></i> Films Premium</h2>
         
         <div class="movies-container">
-            <a href="DIABLO_A.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=DIABLO" alt="DIABLO">
-                <span class="premium-badge">PREMIUM</span>
-                <div class="movie-info">
-                    <div class="movie-name">DIABLO</div>
-                    <div class="movie-category">Horreur, Mystère</div>
-                </div>
-            </a>
-            
-            <a href="OLD_GUARD_2_A.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=OLD+GUARD+2" alt="OLD GUARD 2">
-                <span class="premium-badge">NOUVEAU</span>
-                <div class="movie-info">
-                    <div class="movie-name">OLD GUARD 2</div>
-                    <div class="movie-category">Action, Aventure</div>
-                </div>
-            </a>
-            
-            <a href="BALLERINA_A.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=BALLERINA" alt="BALLERINA">
-                <span class="premium-badge">PREMIUM</span>
-                <div class="movie-info">
-                    <div class="movie-name">BALLERINA</div>
-                    <div class="movie-category">Action, Thriller</div>
-                </div>
-            </a>
-            
-            <a href="KARATE_KID_LEGEND_A.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=KARATE+KID" alt="KARATE KID LEGEND">
+            <a href="KARATE_pro.html" class="movie-card">
+                <img src="karate.png" alt="KARATE KID LEGEND">
                 <span class="premium-badge">EXCLUSIF</span>
                 <div class="movie-info">
                     <div class="movie-name">KARATE KID LEGEND</div>
                     <div class="movie-category">Action, Arts martiaux</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
             
-            <a href="HEAD_OF_STATE_A.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=HEAD+OF+STATE" alt="HEAD OF STATE">
-                <span class="premium-badge">PREMIUM</span>
+            <a href="BALLERINA_pro.html" class="movie-card">
+                <img src="BALLERINA.png" alt="BALLERINA">
+                <span class="premium-badge">EXCLUSIF</span>
+                <div class="movie-info">
+                    <div class="movie-name">BALLERINA</div>
+                    <div class="movie-category">Action, Thriller</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                </div>
+            </a>
+            
+            <a href="STATE_pro.html" class="movie-card">
+                <img src="STATE.png" alt="HEAD OF STATE">
+                <span class="premium-badge">EXCLUSIF</span>
                 <div class="movie-info">
                     <div class="movie-name">HEAD OF STATE</div>
                     <div class="movie-category">Action, Politique</div>
-                </div>
-            </a>
-            
-            <a href="CLEANER.html" class="movie-card">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=CLEANER" alt="CLEANER">
-                <span class="premium-badge">EXCLUSIF</span>
-                <div class="movie-info">
-                    <div class="movie-name">CLEANER</div>
-                    <div class="movie-category">Action, Thriller</div>
+                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
                 </div>
             </a>
         </div>
