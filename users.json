@@ -1,0 +1,17 @@
+{
+  "CINETV123": {
+    "email": "audrypaulin65@gmail.com",
+    "expire": "2025-12-31",
+    "plan": "VIP"
+  },
+  "PREMIUM789": {
+    "email": "test@example.com",
+    "expire": "2025-10-15",
+    "plan": "Standard"
+  },
+  "TEST123": {
+    "email": "test@test.com",
+    "expire": "2025-12-31",
+    "plan": "Test"
+  }
+}

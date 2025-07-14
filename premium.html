@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-5YGXCXLV6N');
-    </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINETV Premium - En préparation</title>
+    <title>CINETV Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -23,27 +14,32 @@
         }
         
         body {
-            background-color: #1a1a2e;
-            background-image: linear-gradient(135deg, #0f0f1b 0%, #1a1a2e 100%);
+            background-color: #0f0f1b;
+            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 60px;
         }
         
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: linear-gradient(to right, #1a1a2e, #16213e);
+            padding: 10px 5%;
+            background: linear-gradient(to right, #2b1a1a, #1a1a2e);
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            height: 60px;
+            border-bottom: 1px solid #ffd700;
         }
         
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #e94560;
+            color: #ffd700;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -51,217 +47,546 @@
         
         .logo i {
             margin-right: 10px;
+            color: #ffd700;
+        }
+        
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .menu-item {
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #ffd700;
+        }
+        
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 60px;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: calc(100vh - 60px);
+            background: #1a1a2e;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s ease;
+            z-index: 99;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 2px solid #ffd700;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-item {
+            display: block;
+            color: #ffd700;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-item:hover {
+            color: #fff;
         }
         
         .premium-container {
-            flex: 1;
+            padding: 20px 5%;
+            display: none;
+        }
+        
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .movie-card {
+            background: #1a1a2e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            border-color: #ffd700;
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .movie-info {
+            padding: 12px;
+        }
+        
+        .movie-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #ffd700;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffd700;
+            color: #1a1a2e;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            border-top: 1px solid #ffd700;
+        }
+        
+        .nav-item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
-            background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 70%);
         }
         
-        .premium-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, #d4af37, #f9d423);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 3rem;
-            color: #1a1a2e;
-            box-shadow: 0 0 30px rgba(212,175,55,0.3);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 30px rgba(212,175,55,0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(212,175,55,0.5); }
-            100% { transform: scale(1); box-shadow: 0 0 30px rgba(212,175,55,0.3); }
-        }
-        
-        h1 {
-            background: linear-gradient(to right, #d4af37, #f9d423);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-            font-size: 2.5rem;
-        }
-        
-        .subtitle {
-            color: #d4af37;
+        .nav-item i {
             font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            line-height: 1.5;
+            margin-bottom: 5px;
+            color: #ffd700;
         }
         
-        .preparation-message {
-            background: rgba(212,175,55,0.1);
-            border-left: 4px solid #d4af37;
-            padding: 20px;
-            margin: 30px 0;
+        .nav-item:hover {
+            color: #ffd700;
+        }
+        
+        .form-carousel {
             max-width: 500px;
-            text-align: left;
-            border-radius: 0 8px 8px 0;
+            margin: 40px auto;
+            overflow: hidden;
+            position: relative;
         }
         
-        .features {
+        .form-slides {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0;
-            max-width: 800px;
+            transition: transform 0.5s ease;
         }
         
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(212,175,55,0.2);
+        .form-slide {
+            min-width: 100%;
+            padding: 30px;
+            background: rgba(26, 26, 46, 0.8);
             border-radius: 10px;
-            padding: 25px;
-            width: 250px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212,175,55,0.1);
-            border-color: rgba(212,175,55,0.4);
-        }
-        
-        .feature-icon {
-            color: #d4af37;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-title {
-            color: #d4af37;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .notify-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(to right, #d4af37, #f9d423);
-            color: #1a1a2e;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 25px 0;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .notify-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212,175,55,0.3);
-        }
-        
-        footer {
-            background: #0d0d15;
-            padding: 20px 5%;
+        .form-title {
             text-align: center;
-            font-size: 0.8rem;
-            color: #777;
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-btn {
+            background: linear-gradient(to right, #ffd700, #daa520);
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .form-btn:hover {
+            background: linear-gradient(to right, #daa520, #ffd700);
+        }
+        
+        .form-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .form-nav-btn {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-nav-btn:hover {
+            background: rgba(255, 215, 0, 0.4);
+        }
+        
+        .form-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .verification-message {
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .verification-success {
+            background: rgba(0, 128, 0, 0.2);
+            border: 1px solid #008000;
+            color: #00ff00;
+        }
+        
+        .verification-error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            color: #ff5555;
+        }
+        
+        .loader {
+            border: 4px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #ffd700;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .menu {
+                display: none;
             }
             
-            .subtitle {
-                font-size: 1rem;
+            .hamburger-menu {
+                display: block;
             }
             
-            .features {
-                flex-direction: column;
-                align-items: center;
+            .movies-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .movies-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-carousel {
+                margin: 20px 10px;
+            }
+            
+            .form-slide {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
+        <div class="menu">
+            <a href="0.html#series" class="menu-item">Séries</a>
+            <a href="0.html#horreur" class="menu-item">Horreur</a>
+            <a href="0.html#action" class="menu-item">Action</a>
+            <a href="0.html#nouveautes" class="menu-item">Nouveautés</a>
+            <a href="0.html#autres" class="menu-item">Autres</a>
+        </div>
+        <div class="hamburger-menu">
+            <i class="fas fa-bars"></i>
+        </div>
     </nav>
     
-    <!-- Premium Content -->
-    <div class="premium-container">
-        <div class="premium-icon">
-            <i class="fas fa-crown"></i>
-        </div>
-        
-        <h1>CINETV PREMIUM</h1>
-        <div class="subtitle">Élévation de votre expérience de streaming à un niveau supérieur</div>
-        
-        <div class="preparation-message">
-            <p><strong>En cours de préparation</strong></p>
-            <p>Nous travaillons activement sur notre offre premium pour vous proposer une expérience exceptionnelle. Abonnez-vous à notre newsletter pour être informé du lancement.</p>
-        </div>
-        
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-ad"></i>
-                </div>
-                <h3 class="feature-title">Zéro publicité</h3>
-                <p>Profitez de vos contenus sans aucune interruption publicitaire.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3 class="feature-title">Contenu exclusif</h3>
-                <p>Accès à des films et séries premium indisponibles en version standard.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-film"></i>
-                </div>
-                <h3 class="feature-title">Qualité 4K</h3>
-                <p>Streaming en ultra haute définition pour une expérience immersive.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-download"></i>
-                </div>
-                <h3 class="feature-title">Téléchargements</h3>
-                <p>Téléchargez vos contenus pour les regarder hors connexion.</p>
-            </div>
-        </div>
-        
-        <button class="notify-btn" id="notifyBtn">
-            <i class="fas fa-bell"></i> Me notifier lors du lancement
-        </button>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="0.html#series" class="mobile-menu-item"><i class="fas fa-tv"></i> Séries</a>
+        <a href="0.html#horreur" class="mobile-menu-item"><i class="fas fa-ghost"></i> Horreur</a>
+        <a href="0.html#action" class="mobile-menu-item"><i class="fas fa-explosion"></i> Action</a>
+        <a href="0.html#nouveautes" class="mobile-menu-item"><i class="fas fa-star"></i> Nouveautés</a>
+        <a href="0.html#autres" class="mobile-menu-item"><i class="fas fa-ellipsis-h"></i> Autres</a>
+        <a href="premium.html" class="mobile-menu-item"><i class="fas fa-crown"></i> Premium</a>
+        <a href="download_app.html" class="mobile-menu-item"><i class="fas fa-download"></i> Télécharger l'app</a>
     </div>
-    
-    <!-- Footer -->
-    <footer>
-        <div>&copy; 2025 CINETV. Tous droits réservés.</div>
-        <div>Créé par AUDRY DESIGNER</div>
-    </footer>
 
+    <div class="form-carousel">
+        <div class="form-slides" id="formSlides">
+            <div class="form-slide">
+                <h2 class="form-title"><i class="fas fa-envelope"></i> Vérification Email</h2>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" placeholder="votre@email.com" required>
+                </div>
+                <button class="form-btn" id="nextBtn1">Suivant</button>
+            </div>
+            
+            <div class="form-slide">
+                <h2 class="form-title"><i class="fas fa-key"></i> Code d'Accès</h2>
+                <div class="form-group">
+                    <label for="code">Code d'accès :</label>
+                    <input type="text" id="code" placeholder="Votre code premium" required>
+                </div>
+                <div class="form-nav">
+                    <button class="form-nav-btn" id="prevBtn2">Précédent</button>
+                    <button class="form-btn" id="verifyBtn">Vérifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader" id="loader"></div>
+    <div class="verification-message" id="verificationMessage"></div>
+
+    <div class="premium-container" id="premiumContainer">
+        <h2 style="color:#ffd700; margin-bottom:20px;"><i class="fas fa-film"></i> Films Premium</h2>
+        
+        <div class="movies-container">
+            <a href="DIABLO_A.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=DIABLO" alt="DIABLO">
+                <span class="premium-badge">PREMIUM</span>
+                <div class="movie-info">
+                    <div class="movie-name">DIABLO</div>
+                    <div class="movie-category">Horreur, Mystère</div>
+                </div>
+            </a>
+            
+            <a href="OLD_GUARD_2_A.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=OLD+GUARD+2" alt="OLD GUARD 2">
+                <span class="premium-badge">NOUVEAU</span>
+                <div class="movie-info">
+                    <div class="movie-name">OLD GUARD 2</div>
+                    <div class="movie-category">Action, Aventure</div>
+                </div>
+            </a>
+            
+            <a href="BALLERINA_A.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=BALLERINA" alt="BALLERINA">
+                <span class="premium-badge">PREMIUM</span>
+                <div class="movie-info">
+                    <div class="movie-name">BALLERINA</div>
+                    <div class="movie-category">Action, Thriller</div>
+                </div>
+            </a>
+            
+            <a href="KARATE_KID_LEGEND_A.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=KARATE+KID" alt="KARATE KID LEGEND">
+                <span class="premium-badge">EXCLUSIF</span>
+                <div class="movie-info">
+                    <div class="movie-name">KARATE KID LEGEND</div>
+                    <div class="movie-category">Action, Arts martiaux</div>
+                </div>
+            </a>
+            
+            <a href="HEAD_OF_STATE_A.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=HEAD+OF+STATE" alt="HEAD OF STATE">
+                <span class="premium-badge">PREMIUM</span>
+                <div class="movie-info">
+                    <div class="movie-name">HEAD OF STATE</div>
+                    <div class="movie-category">Action, Politique</div>
+                </div>
+            </a>
+            
+            <a href="CLEANER.html" class="movie-card">
+                <img src="https://via.placeholder.com/300x450/1a1a2e/ffd700?text=CLEANER" alt="CLEANER">
+                <span class="premium-badge">EXCLUSIF</span>
+                <div class="movie-info">
+                    <div class="movie-name">CLEANER</div>
+                    <div class="movie-category">Action, Thriller</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="0.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+        </a>
+        <a href="#" class="nav-item" id="contactBtn">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+        <a href="premium.html" class="nav-item">
+            <i class="fas fa-crown"></i>
+            <span>Premium</span>
+        </a>
+        <a href="download_app.html" class="nav-item">
+            <i class="fas fa-download"></i>
+            <span>App</span>
+        </a>
+    </div>
+
+    <script src="auth.js"></script>
     <script>
-        // Gestion du bouton de notification
-        document.getElementById('notifyBtn').addEventListener('click', function() {
-            alert('Merci pour votre intérêt ! Nous vous enverrons une notification dès que CINETV Premium sera disponible.');
+        // Gestion du menu mobile
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburgerMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Gestion du carrousel de formulaire
+        const formSlides = document.getElementById('formSlides');
+        const nextBtn1 = document.getElementById('nextBtn1');
+        const prevBtn2 = document.getElementById('prevBtn2');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verificationMessage = document.getElementById('verificationMessage');
+        const premiumContainer = document.getElementById('premiumContainer');
+        const loader = document.getElementById('loader');
+        
+        let currentSlide = 0;
+        const slideWidth = 100;
+        
+        nextBtn1.addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert('Veuillez entrer votre email');
+                return;
+            }
+            
+            currentSlide = 1;
+            formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+        });
+        
+        prevBtn2.addEventListener('click', function() {
+            currentSlide = 0;
+            formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+        });
+        
+        verifyBtn.addEventListener('click', async function() {
+            const email = document.getElementById('email').value.trim();
+            const code = document.getElementById('code').value.trim();
+            
+            if (!email || !code) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            // Afficher le loader
+            loader.style.display = 'block';
+            verifyBtn.disabled = true;
+            
+            try {
+                const result = await verifyPremiumAccess(email, code);
+                
+                if (result.success) {
+                    verificationMessage.textContent = 'Vérification réussie ! Accès premium accordé.';
+                    verificationMessage.className = 'verification-message verification-success';
+                    premiumContainer.style.display = 'block';
+                    document.querySelector('.form-carousel').style.display = 'none';
+                    
+                    localStorage.setItem('premiumAccess', 'true');
+                    localStorage.setItem('userEmail', email);
+                } else {
+                    verificationMessage.textContent = result.error || 'Vérification échouée';
+                    verificationMessage.className = 'verification-message verification-error';
+                    premiumContainer.style.display = 'none';
+                }
+                
+                verificationMessage.style.display = 'block';
+                currentSlide = 0;
+                formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+            } catch (error) {
+                console.error("Erreur:", error);
+                verificationMessage.textContent = 'Erreur lors de la vérification';
+                verificationMessage.className = 'verification-message verification-error';
+                verificationMessage.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
+                verifyBtn.disabled = false;
+            }
+        });
+        
+        // Vérification de session au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('premiumAccess') === 'true') {
+                premiumContainer.style.display = 'block';
+                document.querySelector('.form-carousel').style.display = 'none';
+                verificationMessage.textContent = `Bienvenue de retour ${localStorage.getItem('userEmail') || ''}!`;
+                verificationMessage.className = 'verification-message verification-success';
+                verificationMessage.style.display = 'block';
+            }
+        });
+        
+        document.getElementById('contactBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Redirection vers la page de contact');
         });
     </script>
 </body>
