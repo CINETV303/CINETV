@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KARATE KID LEGEND A | CinéTV</title>
+    <title>KARATE KID LEGEND B | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
@@ -409,11 +409,11 @@
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/1pIZ4QdoKfmqNxxtZX19Dj9HOAN86G2TW/preview" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/1pyIwYL9hWIxOE0GZQfHAVd-0WUwTMGQs/preview" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <h1 class="movie-title">KARATE KID LEGEND A</h1>
+            <h1 class="movie-title">KARATE KID LEGEND B</h1>
             <div class="interpreter">
                 <i class="fas fa-microphone"></i>
                 <span>ROCKY KIMOMO</span>
@@ -436,9 +436,9 @@
         <section class="similar-movies">
             <h2 class="section-title">Films Similaires</h2>
             <div class="movies-container">
-                <a href="KARATE_KID_LEGEND_B.html" class="movie-card">
-                    <img src="karate.png" alt="KARATE KID LEGEND B">
-                    <div class="movie-name">KARATE KID LEGEND B</div>
+                <a href="KARATE_KID_LEGEND_A.html" class="movie-card">
+                    <img src="karate.png" alt="KARATE KID LEGEND A">
+                    <div class="movie-name">KARATE KID LEGEND A</div>
                 </a>
                 
                 <a href="BALLERINA_A.html" class="movie-card">
@@ -514,8 +514,8 @@
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('karateKidLegendALikes') ? parseInt(localStorage.getItem('karateKidLegendALikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedKarateKidLegendA') === 'true';
+        let likes = localStorage.getItem('karateKidLegendBLikes') ? parseInt(localStorage.getItem('karateKidLegendBLikes')) : 0;
+        let userLiked = localStorage.getItem('userLikedKarateKidLegendB') === 'true';
         
         updateLikeDisplay();
         
@@ -528,8 +528,8 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('karateKidLegendALikes', likes);
-            localStorage.setItem('userLikedKarateKidLegendA', userLiked);
+            localStorage.setItem('karateKidLegendBLikes', likes);
+            localStorage.setItem('userLikedKarateKidLegendB', userLiked);
             
             updateLikeDisplay();
         });
@@ -570,7 +570,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez KARATE KID LEGEND A sur CinéTV');
+        const title = encodeURIComponent('Regardez KARATE KID LEGEND B sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();
