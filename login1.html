@@ -412,7 +412,7 @@
                 showAuthMessage('Connexion en cours...', false);
                 await signInWithEmailAndPassword(auth, email, password);
                 showAuthMessage('Connexion réussie ! Redirection...', false);
-                window.location.href = 'premium.html';
+                window.location.href = 'accueil_premium.html';
             } catch (error) {
                 console.error('Erreur:', error);
                 let errorMessage = "Erreur de connexion";
