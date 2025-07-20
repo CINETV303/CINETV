@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINETV PREMIUM - Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            background-color: #121212;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, #d4af37, #f9d423);
+            color: #121212;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #f9d423, #d4af37);
+        }
+        
+        .auth-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #d4af37;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .auth-subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .premium-offer {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #d4af37;
+            font-size: 0.9rem;
+        }
+        
+        .premium-offer i {
+            margin-right: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #d4af37;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            width: 100%;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #f9d423);
+            color: #121212;
+            font-weight: 700;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #c9a227, #e8c51a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 15px;
+        }
+        
+        .btn-secondary:hover {
+            color: #d4af37;
+            border-color: #d4af37;
+            transform: translateY(-2px);
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin: 25px 0;
+            color: #777;
+        }
+        
+        .form-switch a {
+            color: #d4af37;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .form-switch a:hover {
+            text-decoration: underline;
+        }
+        
+        .auth-message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            background-color: rgba(173, 20, 20, 0.2);
+            border: 1px solid #ad1414;
+            color: #ff6b6b;
+        }
+        
+        .success-message {
+            background-color: rgba(33, 150, 83, 0.2);
+            border: 1px solid #219653;
+            color: #6bff95;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #777;
+            font-size: 0.8rem;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .divider::before {
+            margin-right: 10px;
+        }
+        
+        .divider::after {
+            margin-left: 10px;
+        }
+        
+        footer {
+            background: rgba(18, 18, 18, 0.8);
+            padding: 30px 5%;
+            text-align: center;
+            margin-top: auto;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px;
+            }
+            
+            .auth-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 20px;
+            }
+            
+            .auth-title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-crown"></i> CINETV <span class="premium-badge">Premium</span>
+        </a>
+    </nav>
+    
+    <div class="auth-container">
+        <h1 class="auth-title"><i class="fas fa-crown"></i> Connexion Premium</h1>
+        <p class="auth-subtitle">Accédez à notre collection exclusive de films et séries en qualité 4K</p>
+        
+        <div class="premium-offer">
+            <i class="fas fa-gem"></i> Créez un nouveau compte premium pour accéder au contenu exclusif
+        </div>
+        
+        <div id="auth-message" class="auth-message hidden"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="login-email"><i class="fas fa-envelope"></i> Adresse Email</label>
+                <input type="email" id="login-email" class="form-control" placeholder="votre@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="login-password"><i class="fas fa-lock"></i> Mot de passe</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Votre mot de passe" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Se connecter
+            </button>
+            
+            <div class="form-switch">
+                Pas encore premium ? <a id="switch-to-register">S'inscrire maintenant</a>
+            </div>
+        </form>
+        
+        <form id="registerForm" class="hidden">
+            <div class="form-group">
+                <label for="register-name"><i class="fas fa-user"></i> Nom complet</label>
+                <input type="text" id="register-name" class="form-control" placeholder="Votre nom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="register-email"><i class="fas fa-envelope"></i> Adresse Email</label>
+                <input type="email" id="register-email" class="form-control" placeholder="votre@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="register-password"><i class="fas fa-lock"></i> Mot de passe</label>
+                <input type="password" id="register-password" class="form-control" placeholder="Minimum 6 caractères" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="register-confirm-password"><i class="fas fa-lock"></i> Confirmez le mot de passe</label>
+                <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirmez votre mot de passe" required minlength="6">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-crown"></i> Devenir Premium
+            </button>
+            
+            <div class="form-switch">
+                Déjà membre ? <a id="switch-to-login">Se connecter</a>
+            </div>
+        </form>
+        
+        <div class="divider">OU</div>
+        
+        <button class="btn btn-secondary" id="google-signin">
+            <i class="fab fa-google"></i> Continuer avec Google
+        </button>
+    </div>
+    
+    <footer>
+        <div class="copyright">
+            &copy; 2025 CINETV PREMIUM. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script type="module">
+        // Même script Firebase que précédemment
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            sendPasswordResetEmail,
+            signInWithPopup,
+            GoogleAuthProvider,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB77EmeaPTvtXCH4EL-1E1SgmyW6Yz9lLI",
+            authDomain: "cinetv257.firebaseapp.com",
+            projectId: "cinetv257",
+            storageBucket: "cinetv257.appspot.com",
+            messagingSenderId: "402664770835",
+            appId: "1:402664770835:web:1adaea98f40ca609645ee6",
+            measurementId: "G-194WCGXQSH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        function showAuthMessage(message, isError = true) {
+            const authMessage = document.getElementById('auth-message');
+            authMessage.textContent = message;
+            authMessage.className = isError ? 'auth-message error-message' : 'auth-message success-message';
+            authMessage.classList.remove('hidden');
+            authMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => authMessage.classList.add('hidden'), 5000);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                showAuthMessage('Connexion en cours...', false);
+                await signInWithEmailAndPassword(auth, email, password);
+                showAuthMessage('Connexion réussie ! Redirection...', false);
+                window.location.href = 'premium.html';
+            } catch (error) {
+                console.error('Erreur:', error);
+                let errorMessage = "Erreur de connexion";
+                if (error.code === 'auth/wrong-password') errorMessage = "Mot de passe incorrect";
+                else if (error.code === 'auth/user-not-found') errorMessage = "Email non trouvé";
+                showAuthMessage(errorMessage);
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showAuthMessage("Les mots de passe ne correspondent pas");
+                return;
+            }
+
+            try {
+                showAuthMessage("Création de votre compte premium...", false);
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(userCredential.user, { displayName: name });
+                showAuthMessage(`Bienvenue ${name} ! Votre compte premium est activé.`, false);
+                window.location.href = 'premium.html';
+            } catch (error) {
+                console.error('Erreur:', error);
+                let errorMessage = "Erreur d'inscription";
+                if (error.code === 'auth/email-already-in-use') errorMessage = "Email déjà utilisé";
+                else if (error.code === 'auth/weak-password') errorMessage = "Mot de passe trop faible";
+                showAuthMessage(errorMessage);
+            }
+        });
+
+        document.getElementById('google-signin').addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider)
+                .then(() => {
+                    showAuthMessage('Connexion réussie !', false);
+                    window.location.href = 'premium.html';
+                })
+                .catch((error) => {
+                    showAuthMessage(error.code === 'auth/popup-closed-by-user' 
+                        ? 'Connexion annulée' 
+                        : 'Erreur Google');
+                });
+        });
+
+        // Basculer entre les formulaires
+        document.getElementById('switch-to-register').addEventListener('click', () => {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.querySelector('.auth-title').innerHTML = '<i class="fas fa-crown"></i> Devenir Premium';
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', () => {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.querySelector('.auth-title').innerHTML = '<i class="fas fa-crown"></i> Connexion Premium';
+        });
+    </script>
+</body>
+</html>

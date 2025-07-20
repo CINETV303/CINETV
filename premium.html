@@ -5,337 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CINETV Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #0f0f1b;
+            --darker-bg: #0a0a12;
         }
         
-        body {
-            background-color: #0f0f1b;
-            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-            padding-bottom: 60px;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 5%;
-            background: linear-gradient(to right, #2b1a1a, #1a1a2e);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            height: 60px;
-            border-bottom: 1px solid #ffd700;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffd700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            color: #ffd700;
-        }
-        
-        .menu {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .menu-item {
-            color: #ffd700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .menu-item:hover {
-            color: #fff;
-            text-shadow: 0 0 5px #ffd700;
-        }
-        
-        .hamburger-menu {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #ffd700;
-        }
-        
-        .mobile-menu {
+        #auth-check {
             position: fixed;
-            top: 60px;
-            right: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: calc(100vh - 60px);
-            background: #1a1a2e;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-            transition: right 0.3s ease;
-            z-index: 99;
-            padding: 20px;
-            overflow-y: auto;
-            border-left: 2px solid #ffd700;
-        }
-        
-        .mobile-menu.active {
-            right: 0;
-        }
-        
-        .mobile-menu-item {
-            display: block;
-            color: #ffd700;
-            text-decoration: none;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-            transition: all 0.3s;
-        }
-        
-        .mobile-menu-item:hover {
-            color: #fff;
-        }
-        
-        .premium-container {
-            padding: 20px 5%;
-            display: none;
-        }
-        
-        .movies-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .movie-card {
-            background: #1a1a2e;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            text-decoration: none;
-            position: relative;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .movie-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-            border-color: #ffd700;
-        }
-        
-        .movie-card img {
-            width: 100%;
-            height: 150px; /* Taille réduite pour correspondre à 0.html */
-            object-fit: cover;
-            display: block;
-        }
-        
-        .movie-info {
-            padding: 12px;
-        }
-        
-        .movie-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: #ffd700;
-        }
-        
-        .movie-category {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-        
-        .movie-interpreter {
-            font-size: 0.75rem;
-            color: #ffd700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .premium-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ffd700;
-            color: #1a1a2e;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-        
-        .bottom-navbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #1a1a2e;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            border-top: 1px solid #ffd700;
-        }
-        
-        .nav-item {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--darker-bg);
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
         
-        .nav-item i {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: #ffd700;
-        }
-        
-        .nav-item:hover {
-            color: #ffd700;
-        }
-        
-        .form-carousel {
-            max-width: 500px;
-            margin: 40px auto;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .form-slides {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        
-        .form-slide {
-            min-width: 100%;
-            padding: 30px;
-            background: rgba(26, 26, 46, 0.8);
-            border-radius: 10px;
-            border: 1px solid #ffd700;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .form-title {
-            text-align: center;
-            color: #ffd700;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ffd700;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #444;
-            border-radius: 5px;
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .form-btn {
-            background: linear-gradient(to right, #ffd700, #daa520);
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-        
-        .form-btn:hover {
-            background: linear-gradient(to right, #daa520, #ffd700);
-        }
-        
-        .form-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .form-nav-btn {
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            border: 1px solid #ffd700;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .form-nav-btn:hover {
-            background: rgba(255, 215, 0, 0.4);
-        }
-        
-        .form-nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .verification-message {
-            text-align: center;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 500px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .verification-success {
-            background: rgba(0, 128, 0, 0.2);
-            border: 1px solid #008000;
-            color: #00ff00;
-        }
-        
-        .verification-error {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
-            color: #ff5555;
-        }
-        
-        .loader {
-            border: 4px solid rgba(255, 215, 0, 0.3);
+        .spinner {
+            border: 5px solid rgba(212, 175, 55, 0.3);
+            border-top: 5px solid var(--gold);
             border-radius: 50%;
-            border-top: 4px solid #ffd700;
-            width: 30px;
-            height: 30px;
+            width: 50px; height: 50px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
+            margin-bottom: 20px;
         }
         
         @keyframes spin {
@@ -343,241 +41,102 @@
             100% { transform: rotate(360deg); }
         }
         
-        @media (max-width: 768px) {
-            .menu {
-                display: none;
-            }
-            
-            .hamburger-menu {
-                display: block;
-            }
-            
-            .movies-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .movies-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-carousel {
-                margin: 20px 10px;
-            }
-            
-            .form-slide {
-                padding: 20px;
-            }
+        .main-content {
+            display: none;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
-        <div class="menu">
-            <a href="0.html#series" class="menu-item">Séries</a>
-            <a href="0.html#horreur" class="menu-item">Horreur</a>
-            <a href="0.html#action" class="menu-item">Action</a>
-            <a href="0.html#nouveautes" class="menu-item">Nouveautés</a>
-            <a href="0.html#autres" class="menu-item">Autres</a>
-        </div>
-        <div class="hamburger-menu">
-            <i class="fas fa-bars"></i>
-        </div>
-    </nav>
-    
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="0.html#series" class="mobile-menu-item"><i class="fas fa-tv"></i> Séries</a>
-        <a href="0.html#horreur" class="mobile-menu-item"><i class="fas fa-ghost"></i> Horreur</a>
-        <a href="0.html#action" class="mobile-menu-item"><i class="fas fa-explosion"></i> Action</a>
-        <a href="0.html#nouveautes" class="mobile-menu-item"><i class="fas fa-star"></i> Nouveautés</a>
-        <a href="0.html#autres" class="mobile-menu-item"><i class="fas fa-ellipsis-h"></i> Autres</a>
-        <a href="premium.html" class="mobile-menu-item"><i class="fas fa-crown"></i> Premium</a>
-        <a href="download_app.html" class="mobile-menu-item"><i class="fas fa-download"></i> Télécharger l'app</a>
+    <div id="auth-check">
+        <div class="spinner"></div>
+        <p style="color: var(--gold);">Vérification en cours...</p>
     </div>
 
-    <div class="form-carousel">
-        <div class="form-slides" id="formSlides">
-            <div class="form-slide">
-                <h2 class="form-title"><i class="fas fa-envelope"></i> Vérification Email</h2>
-                <div class="form-group">
-                    <label for="email">Email :</label>
-                    <input type="email" id="email" placeholder="votre@email.com" required>
-                </div>
-                <button class="form-btn" id="nextBtn1">Suivant</button>
-            </div>
-            
-            <div class="form-slide">
-                <h2 class="form-title"><i class="fas fa-key"></i> Code d'Accès</h2>
-                <div class="form-group">
-                    <label for="code">Code d'accès :</label>
-                    <input type="text" id="code" placeholder="Votre code premium" required>
-                </div>
-                <div class="form-nav">
-                    <button class="form-nav-btn" id="prevBtn2">Précédent</button>
-                    <button class="form-btn" id="verifyBtn">Vérifier</button>
-                </div>
-            </div>
-        </div>
+    <div class="main-content" id="mainContent">
+        <!-- Votre contenu premium ici -->
+        <h1 style="color: var(--gold);">Bienvenue sur CINETV Premium</h1>
+        <p>Contenu exclusif réservé aux membres premium</p>
     </div>
 
-    <div class="loader" id="loader"></div>
-    <div class="verification-message" id="verificationMessage"></div>
-
-    <div class="premium-container" id="premiumContainer">
-        <h2 style="color:#ffd700; margin-bottom:20px;"><i class="fas fa-film"></i> Films Premium</h2>
-        
-        <div class="movies-container">
-            <a href="KARATE_pro.html" class="movie-card">
-                <img src="karate.png" alt="KARATE KID LEGEND">
-                <span class="premium-badge">EXCLUSIF</span>
-                <div class="movie-info">
-                    <div class="movie-name">KARATE KID LEGEND</div>
-                    <div class="movie-category">Action, Arts martiaux</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <a href="BALLERINA_pro.html" class="movie-card">
-                <img src="BALLERINA.png" alt="BALLERINA">
-                <span class="premium-badge">EXCLUSIF</span>
-                <div class="movie-info">
-                    <div class="movie-name">BALLERINA</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <a href="STATE_pro.html" class="movie-card">
-                <img src="STATE.png" alt="HEAD OF STATE">
-                <span class="premium-badge">EXCLUSIF</span>
-                <div class="movie-info">
-                    <div class="movie-name">HEAD OF STATE</div>
-                    <div class="movie-category">Action, Politique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="bottom-navbar">
-        <a href="0.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>Accueil</span>
-        </a>
-        <a href="#" class="nav-item" id="contactBtn">
-            <i class="fas fa-envelope"></i>
-            <span>Contact</span>
-        </a>
-        <a href="premium.html" class="nav-item">
-            <i class="fas fa-crown"></i>
-            <span>Premium</span>
-        </a>
-        <a href="download_app.html" class="nav-item">
-            <i class="fas fa-download"></i>
-            <span>App</span>
-        </a>
-    </div>
-
-    <script src="auth.js"></script>
     <script>
-        // Gestion du menu mobile
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        hamburgerMenu.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-        });
-        
-        // Gestion du carrousel de formulaire
-        const formSlides = document.getElementById('formSlides');
-        const nextBtn1 = document.getElementById('nextBtn1');
-        const prevBtn2 = document.getElementById('prevBtn2');
-        const verifyBtn = document.getElementById('verifyBtn');
-        const verificationMessage = document.getElementById('verificationMessage');
-        const premiumContainer = document.getElementById('premiumContainer');
-        const loader = document.getElementById('loader');
-        
-        let currentSlide = 0;
-        const slideWidth = 100;
-        
-        nextBtn1.addEventListener('click', function() {
-            const email = document.getElementById('email').value;
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbUYGP7_qgxf88nZjvchLaKIev15G5-to",
+            authDomain: "cinetvpremium.firebaseapp.com",
+            projectId: "cinetvpremium",
+            storageBucket: "cinetvpremium.appspot.com",
+            messagingSenderId: "218504098278",
+            appId: "1:218504098278:web:dc11389b067da771cae627"
+        };
+
+        // Initialisation Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Vérifier le localStorage avant Firebase
+        function checkAuthState() {
+            const userData = localStorage.getItem('cineTVUser');
             
-            if (!email) {
-                alert('Veuillez entrer votre email');
-                return;
-            }
-            
-            currentSlide = 1;
-            formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
-        });
-        
-        prevBtn2.addEventListener('click', function() {
-            currentSlide = 0;
-            formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
-        });
-        
-        verifyBtn.addEventListener('click', async function() {
-            const email = document.getElementById('email').value.trim();
-            const code = document.getElementById('code').value.trim();
-            
-            if (!email || !code) {
-                alert('Veuillez remplir tous les champs');
-                return;
-            }
-            
-            // Afficher le loader
-            loader.style.display = 'block';
-            verifyBtn.disabled = true;
-            
-            try {
-                const result = await verifyPremiumAccess(email, code);
+            if (userData) {
+                const { uid, lastLogin } = JSON.parse(userData);
+                const oneDay = 24 * 60 * 60 * 1000;
                 
-                if (result.success) {
-                    verificationMessage.textContent = 'Vérification réussie ! Accès premium accordé.';
-                    verificationMessage.className = 'verification-message verification-success';
-                    premiumContainer.style.display = 'block';
-                    document.querySelector('.form-carousel').style.display = 'none';
-                    
-                    localStorage.setItem('premiumAccess', 'true');
-                    localStorage.setItem('userEmail', email);
-                } else {
-                    verificationMessage.textContent = result.error || 'Vérification échouée';
-                    verificationMessage.className = 'verification-message verification-error';
-                    premiumContainer.style.display = 'none';
+                if ((Date.now() - lastLogin) < oneDay) {
+                    verifyPremiumAccess(uid);
+                    return;
+                }
+            }
+            listenToAuthState();
+        }
+
+        // Écouter les changements d'authentification
+        function listenToAuthState() {
+            auth.onAuthStateChanged(async (user) => {
+                if (!user) {
+                    redirectToLogin();
+                    return;
                 }
                 
-                verificationMessage.style.display = 'block';
-                currentSlide = 0;
-                formSlides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+                // Stocker dans localStorage
+                localStorage.setItem('cineTVUser', JSON.stringify({
+                    uid: user.uid,
+                    lastLogin: Date.now()
+                }));
+                
+                await verifyPremiumAccess(user.uid);
+            });
+        }
+
+        // Vérifier l'abonnement premium
+        async function verifyPremiumAccess(uid) {
+            try {
+                const premiumDoc = await db.collection('premiumUsers').doc(uid).get();
+                
+                if (!premiumDoc.exists || premiumDoc.data().expiryDate.toDate() < new Date()) {
+                    window.location.href = 'upgrade.html';
+                    return;
+                }
+                
+                // Afficher le contenu
+                document.getElementById('auth-check').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                
             } catch (error) {
-                console.error("Erreur:", error);
-                verificationMessage.textContent = 'Erreur lors de la vérification';
-                verificationMessage.className = 'verification-message verification-error';
-                verificationMessage.style.display = 'block';
-            } finally {
-                loader.style.display = 'none';
-                verifyBtn.disabled = false;
+                console.error("Erreur de vérification:", error);
+                redirectToLogin();
             }
-        });
-        
-        // Vérification de session au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('premiumAccess') === 'true') {
-                premiumContainer.style.display = 'block';
-                document.querySelector('.form-carousel').style.display = 'none';
-                verificationMessage.textContent = `Bienvenue de retour ${localStorage.getItem('userEmail') || ''}!`;
-                verificationMessage.className = 'verification-message verification-success';
-                verificationMessage.style.display = 'block';
-            }
-        });
-        
-        document.getElementById('contactBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Redirection vers la page de contact');
-        });
+        }
+
+        function redirectToLogin() {
+            // Nettoyer le localStorage si échec
+            localStorage.removeItem('cineTVUser');
+            window.location.href = 'login1.html?redirect=' + encodeURIComponent(window.location.pathname);
+        }
+
+        // Démarrer la vérification
+        document.addEventListener('DOMContentLoaded', checkAuthState);
     </script>
 </body>
 </html>
