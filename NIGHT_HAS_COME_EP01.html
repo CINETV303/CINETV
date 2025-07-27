@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOST DANGEROUS GAME A | CinéTV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-5YGXCXLV6N');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5YGXCXLV6N');
     </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIGHT HAS COME EP01 | CinéTV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -27,6 +28,7 @@
             overflow-x: hidden;
         }
         
+        /* Navigation simplifiée */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -75,6 +77,7 @@
             cursor: pointer;
         }
         
+        /* Main Content Layout */
         .main-container {
             display: flex;
             flex-direction: column;
@@ -82,6 +85,7 @@
             min-height: calc(100vh - 160px);
         }
         
+        /* Player Section */
         .player-section {
             width: 100%;
             margin-bottom: 30px;
@@ -97,7 +101,7 @@
         .video-player {
             width: 100%;
             height: 0;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             position: relative;
         }
         
@@ -110,7 +114,7 @@
             border: none;
         }
         
-        .movie-title {
+        .episode-title {
             font-size: 1.8rem;
             margin: 15px 0 5px 0;
             color: #e94560;
@@ -129,6 +133,7 @@
             color: #e94560;
         }
         
+        /* Social and action buttons */
         .action-buttons {
             display: flex;
             align-items: center;
@@ -164,7 +169,8 @@
             color: #ccc;
         }
         
-        .similar-movies {
+        /* Episodes Grid */
+        .episodes-grid {
             width: 100%;
         }
         
@@ -174,7 +180,7 @@
             color: #e94560;
         }
         
-        .movies-container {
+        .episodes-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
@@ -182,39 +188,63 @@
             margin: 0 auto;
         }
         
-        .movie-card {
+        .episode-card {
             background: #1a1a2e;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s;
-            aspect-ratio: 1/1.414;
+            aspect-ratio: 1/1.414; /* Ratio A4 */
             position: relative;
         }
         
-        .movie-card:hover {
+        .episode-card:hover {
             transform: scale(1.03);
         }
         
-        .movie-card img {
+        .episode-card.current {
+            border: 2px solid #e94560;
+        }
+        
+        .episode-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
         
-        .movie-name {
+        .episode-number {
             position: absolute;
             bottom: 10px;
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: bold;
             color: white;
             text-shadow: 0 0 5px rgba(0,0,0,0.7);
             background: rgba(0,0,0,0.5);
             padding: 3px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0d0d15;
+            padding: 20px 5%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .designer-credit {
+            color: #aaa;
+            font-size: 0.8rem;
+            font-style: italic;
         }
 
         /* Share Modal */
@@ -302,25 +332,6 @@
             cursor: pointer;
         }
         
-        footer {
-            background: #0d0d15;
-            padding: 20px 5%;
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .copyright {
-            color: #777;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-        
-        .designer-credit {
-            color: #aaa;
-            font-size: 0.8rem;
-            font-style: italic;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
@@ -336,29 +347,29 @@
                 width: 120px;
             }
             
-            .movies-container {
+            .episodes-container {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
                 max-width: 400px;
             }
             
-            .movie-card {
+            .episode-card {
                 aspect-ratio: 1/1.3;
             }
             
-            .movie-name {
+            .episode-number {
                 font-size: 0.7rem;
                 padding: 2px;
             }
         }
         
         @media (max-width: 480px) {
-            .movies-container {
+            .episodes-container {
                 grid-template-columns: repeat(3, 1fr);
                 max-width: 350px;
             }
             
-            .movie-card {
+            .episode-card {
                 aspect-ratio: 1/1.2;
             }
 
@@ -372,29 +383,10 @@
                 font-size: 20px;
             }
         }
-
-        /* Style pour carte indisponible */
-        .unavailable {
-            opacity: 0.5;
-            cursor: not-allowed;
-            position: relative;
-        }
-
-        .unavailable::after {
-            content: "Indisponible";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-        }
     </style>
 </head>
 <body>
+    <!-- Navigation simplifiée -->
     <nav class="navbar">
         <a href="0.html" class="logo"><i class="fas fa-film"></i> CINETV</a>
         <div class="search-box">
@@ -403,18 +395,20 @@
         </div>
     </nav>
     
+    <!-- Main Content -->
     <div class="main-container">
+        <!-- Player Section -->
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/1HryQMok6E-nfQFw6oHh2c2fxAIV5IaSO/preview" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/1oH8sWi-6W6IAusj53AEJ7WCQj0J5XBvN/preview" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <h1 class="movie-title">MOST DANGEROUS GAME A</h1>
+            <h1 class="episode-title">NIGHT HAS COME EP01</h1>
             <div class="interpreter">
                 <i class="fas fa-microphone"></i>
-                <span>ROCKY KIMOMO</span>
+                <span>SAVIMBI</span>
             </div>
             
             <div class="action-buttons">
@@ -431,25 +425,42 @@
             </div>
         </section>
         
-        <section class="similar-movies">
-            <h2 class="section-title">Films Similaires</h2>
-            <div class="movies-container">
-                <a href="MOST_DANGEROUS_GAME_B.html" class="movie-card">
-                    <img src="MOST_DANGEROUS_GAME.png" alt="MOST DANGEROUS GAME B">
-                    <div class="movie-name">MOST DANGEROUS GAME B</div>
+        <!-- Episodes Grid -->
+        <section class="episodes-grid">
+            <h2 class="section-title">Tous les Épisodes</h2>
+            <div class="episodes-container">
+                <a href="NIGHT_HAS_COME_EP01.html" class="episode-card current">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME EP01">
+                    <div class="episode-number">Épisode 1</div>
                 </a>
                 
-                <a href="13_sins.html" class="movie-card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0u34cPv2k6jqOYhCniLKCoJuB8CNinnV0hfhQomAKlWXa_9Q&s" alt="13 SINS">
-                    <div class="movie-name">13 SINS</div>
+                <a href="NIGHT_HAS_COME_EP02.html" class="episode-card">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME EP02">
+                    <div class="episode-number">Épisode 2</div>
                 </a>
                 
-                <!-- Élément vide pour maintenir la grille de 3 colonnes -->
-                <div class="movie-card" style="visibility: hidden;"></div>
+                <a href="NIGHT_HAS_COME_EP03.html" class="episode-card">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME EP03">
+                    <div class="episode-number">Épisode 3</div>
+                </a>
+                
+                <a href="NIGHT_HAS_COME_EP04.html" class="episode-card">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME EP04">
+                    <div class="episode-number">Épisode 4</div>
+                </a>
+                
+                <a href="NIGHT_HAS_COME_EP05.html" class="episode-card">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME EP05">
+                    <div class="episode-number">Épisode 5</div>
+                </a>
+                
+                <!-- Élément vide pour compléter la grille -->
+                <div class="episode-card" style="visibility: hidden;"></div>
             </div>
         </section>
     </div>
     
+    <!-- Footer -->
     <footer>
         <div class="copyright">
             &copy; 2025 CINETV. Tous droits réservés.
@@ -494,7 +505,7 @@
     </div>
 
     <script>
-        // Fonctionnalité de recherche
+        // Fonctionnalité de recherche basique
         document.getElementById('searchButton').addEventListener('click', function() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if (searchTerm.trim() !== '') {
@@ -502,19 +513,22 @@
             }
         });
 
+        // Permettre la recherche avec la touche Entrée
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('searchButton').click();
             }
         });
 
-        // Fonctionnalité de like
+        // Fonctionnalité de like avec stockage local
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('mostDangerousALikes') ? parseInt(localStorage.getItem('mostDangerousALikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedMostDangerousA') === 'true';
+        // Charger les likes depuis le localStorage ou initialiser à 0
+        let likes = localStorage.getItem('nightHasComeEp1Likes') ? parseInt(localStorage.getItem('nightHasComeEp1Likes')) : 0;
+        let userLiked = localStorage.getItem('userLikedNightHasComeEp1') === 'true';
         
+        // Mettre à jour l'affichage initial
         updateLikeDisplay();
         
         likeButton.addEventListener('click', function() {
@@ -526,8 +540,9 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('mostDangerousALikes', likes);
-            localStorage.setItem('userLikedMostDangerousA', userLiked);
+            // Sauvegarder dans le localStorage
+            localStorage.setItem('nightHasComeEp1Likes', likes);
+            localStorage.setItem('userLikedNightHasComeEp1', userLiked);
             
             updateLikeDisplay();
         });
@@ -555,6 +570,7 @@
             shareModal.style.display = 'none';
         });
         
+        // Fermer la fenêtre en cliquant à l'extérieur
         window.addEventListener('click', function(event) {
             if (event.target === shareModal) {
                 shareModal.style.display = 'none';
@@ -568,7 +584,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez MOST DANGEROUS GAME A sur CinéTV');
+        const title = encodeURIComponent('Regardez NIGHT HAS COME EP01 sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOST DANGEROUS GAME A | CinéTV</title>
+    <title>MOST DANGEROUS GAME B | CinéTV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YGXCXLV6N"></script>
@@ -407,11 +407,11 @@
         <section class="player-section">
             <div class="video-container">
                 <div class="video-player">
-                    <iframe src="https://drive.google.com/file/d/1HryQMok6E-nfQFw6oHh2c2fxAIV5IaSO/preview" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/1NiFRQmFBKuZdLvyd9KQTrdSc5DDHPs4e/preview" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <h1 class="movie-title">MOST DANGEROUS GAME A</h1>
+            <h1 class="movie-title">MOST DANGEROUS GAME B</h1>
             <div class="interpreter">
                 <i class="fas fa-microphone"></i>
                 <span>ROCKY KIMOMO</span>
@@ -434,9 +434,9 @@
         <section class="similar-movies">
             <h2 class="section-title">Films Similaires</h2>
             <div class="movies-container">
-                <a href="MOST_DANGEROUS_GAME_B.html" class="movie-card">
-                    <img src="MOST_DANGEROUS_GAME.png" alt="MOST DANGEROUS GAME B">
-                    <div class="movie-name">MOST DANGEROUS GAME B</div>
+                <a href="MOST_DANGEROUS_GAME_A.html" class="movie-card">
+                    <img src="MOST_DANGEROUS_GAME.png" alt="MOST DANGEROUS GAME A">
+                    <div class="movie-name">MOST DANGEROUS GAME A</div>
                 </a>
                 
                 <a href="13_sins.html" class="movie-card">
@@ -512,8 +512,8 @@
         const likeButton = document.getElementById('likeButton');
         const likeCount = document.getElementById('likeCount');
         
-        let likes = localStorage.getItem('mostDangerousALikes') ? parseInt(localStorage.getItem('mostDangerousALikes')) : 0;
-        let userLiked = localStorage.getItem('userLikedMostDangerousA') === 'true';
+        let likes = localStorage.getItem('mostDangerousBLikes') ? parseInt(localStorage.getItem('mostDangerousBLikes')) : 0;
+        let userLiked = localStorage.getItem('userLikedMostDangerousB') === 'true';
         
         updateLikeDisplay();
         
@@ -526,8 +526,8 @@
                 userLiked = true;
             }
             
-            localStorage.setItem('mostDangerousALikes', likes);
-            localStorage.setItem('userLikedMostDangerousA', userLiked);
+            localStorage.setItem('mostDangerousBLikes', likes);
+            localStorage.setItem('userLikedMostDangerousB', userLiked);
             
             updateLikeDisplay();
         });
@@ -568,7 +568,7 @@
         const shareLink = document.getElementById('shareLink');
         
         const pageUrl = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('Regardez MOST DANGEROUS GAME A sur CinéTV');
+        const title = encodeURIComponent('Regardez MOST DANGEROUS GAME B sur CinéTV');
         
         shareFacebook.addEventListener('click', function(e) {
             e.preventDefault();
