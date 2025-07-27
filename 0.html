@@ -333,13 +333,24 @@
             margin-right: 10px;
         }
         
-        .movies-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+        /* Styles pour le carrousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
             margin-bottom: 40px;
+            touch-action: pan-y;
         }
-        
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+            will-change: transform;
+            gap: 15px;
+            padding: 0 5px;
+        }
+
         .movie-card {
             background: #1a1a2e;
             border-radius: 8px;
@@ -348,6 +359,9 @@
             transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
             position: relative;
+            flex: 0 0 calc(33.333% - 10px);
+            min-width: calc(33.333% - 10px);
+            scroll-snap-align: start;
         }
         
         .movie-card:hover {
@@ -431,7 +445,29 @@
             color: #fff;
             padding: 20px;
             text-align: center;
-            grid-column: 1 / -1;
+        }
+        
+        /* Indicateurs de navigation */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .carousel-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-nav button.active {
+            background: #e94560;
+            width: 40px;
         }
         
         footer {
@@ -475,14 +511,15 @@
             font-style: italic;
         }
         
+        /* Suppression des médias queries pour forcer 3 films sur mobile */
         @media (max-width: 768px) {
             .cover-image {
                 height: 250px;
             }
             
-            .movies-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
+            .movie-card {
+                flex: 0 0 calc(33.333% - 10px);
+                min-width: calc(33.333% - 10px);
             }
             
             .movie-card img {
@@ -507,9 +544,9 @@
                 height: 180px;
             }
             
-            .movies-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+            .movie-card {
+                flex: 0 0 calc(33.333% - 8px);
+                min-width: calc(33.333% - 8px);
             }
             
             .movie-card img {
@@ -532,7 +569,6 @@
             <a href="#horreur" class="menu-item">Horreur</a>
             <a href="#action" class="menu-item">Action</a>
             <a href="#nouveautes" class="menu-item">Nouveautés</a>
-            <a href="#autres" class="menu-item">Autres</a>
         </div>
         <div class="search-box">
             <input type="text" placeholder="Rechercher..." id="searchInput">
@@ -606,255 +642,263 @@
         <!-- Search Results -->
         <div class="search-results" id="searchResults">
             <h2 class="search-results-title">Résultats de recherche</h2>
-            <div class="movies-container" id="resultsContainer">
+            <div class="carousel" id="resultsContainer">
                 <!-- Les résultats de recherche seront affichés ici -->
             </div>
         </div>
         
-        <!-- Nouveautés Section (toujours visible) -->
+        <!-- Nouveautés Section avec carrousel -->
         <h2 class="section-title" id="nouveautes"><i class="fas fa-star"></i> NOUVEAUTÉS</h2>
-        <div class="movies-container" id="newMoviesContainer">
-            <!-- NIGHT HAS COME (nouveau) -->
-            <a href="NIGHT_HAS_COME_EP01.html" class="movie-card">
-                <img src="NIGHT.png" alt="NIGHT HAS COME">
-                <div class="new-badge" id="badge-night">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">NIGHT HAS COME</div>
-                    <div class="movie-category">Thriller, Mystère</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+        <div class="carousel-container" id="nouveautesCarousel">
+            <div class="carousel">
+                <!-- NIGHT HAS COME -->
+                <a href="NIGHT_HAS_COME_EP01.html" class="movie-card">
+                    <img src="NIGHT.png" alt="NIGHT HAS COME">
+                    <div class="new-badge" id="badge-night">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">NIGHT HAS COME</div>
+                        <div class="movie-category">Thriller, Mystère</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
 
-            <!-- most dangerous game -->
-            <a href="MOST_DANGEROUS_GAME_A.html" class="movie-card">
-                <img src="MOST_DANGEROUS_GAME.png" alt="most dangerous game">
-                <div class="new-badge" id="badge-karate">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">MOST DANGEROUS GAME</div>
-                    <div class="movie-category">Action, thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+                <!-- most dangerous game -->
+                <a href="MOST_DANGEROUS_GAME_A.html" class="movie-card">
+                    <img src="MOST_DANGEROUS_GAME.png" alt="most dangerous game">
+                    <div class="new-badge" id="badge-karate">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">MOST DANGEROUS GAME</div>
+                        <div class="movie-category">Action, thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
 
-            <!-- Karate Kid Legend -->
-            <a href="KARATE_KID_LEGEND_A.html" class="movie-card">
-                <img src="karate.png" alt="KARATE KID LEGEND">
-                <div class="new-badge" id="badge-karate">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">KARATE KID LEGEND</div>
-                    <div class="movie-category">Action, Arts martiaux</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- BALLERINA -->
-            <a href="BALLERINA_A.html" class="movie-card">
-                <img src="BALLERINA.png" alt="BALLERINA">
-                <div class="new-badge" id="badge-ballerina">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">BALLERINA</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- OLD GUARD 2 -->
-            <a href="OLD_GUARD_2_A.html" class="movie-card">
-                <img src="guard.png" alt="OLD GUARD 2">
-                <div class="new-badge" id="badge-oldguard">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">OLD GUARD 2</div>
-                    <div class="movie-category">Action, Aventure</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- HEAD OF STATE -->
-            <a href="HEAD_OF_STATE_A.html" class="movie-card">
-                <img src="STATE.png" alt="HEAD OF STATE">
-                <div class="new-badge" id="badge-headstate">Nouveau</div>
-                <div class="movie-info">
-                    <div class="movie-name">HEAD OF STATE</div>
-                    <div class="movie-category">Action, Politique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+                <!-- Karate Kid Legend -->
+                <a href="KARATE_KID_LEGEND_A.html" class="movie-card">
+                    <img src="karate.png" alt="KARATE KID LEGEND">
+                    <div class="new-badge" id="badge-karate">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">KARATE KID LEGEND</div>
+                        <div class="movie-category">Action, Arts martiaux</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- BALLERINA -->
+                <a href="BALLERINA_A.html" class="movie-card">
+                    <img src="BALLERINA.png" alt="BALLERINA">
+                    <div class="new-badge" id="badge-ballerina">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">BALLERINA</div>
+                        <div class="movie-category">Action, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- OLD GUARD 2 -->
+                <a href="OLD_GUARD_2_A.html" class="movie-card">
+                    <img src="guard.png" alt="OLD GUARD 2">
+                    <div class="new-badge" id="badge-oldguard">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">OLD GUARD 2</div>
+                        <div class="movie-category">Action, Aventure</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- HEAD OF STATE -->
+                <a href="HEAD_OF_STATE_A.html" class="movie-card">
+                    <img src="STATE.png" alt="HEAD OF STATE">
+                    <div class="new-badge" id="badge-headstate">Nouveau</div>
+                    <div class="movie-info">
+                        <div class="movie-name">HEAD OF STATE</div>
+                        <div class="movie-category">Action, Politique</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+            </div>
+            <div class="carousel-nav" id="nouveautesNav"></div>
         </div>
         
-        <!-- Séries Section -->
+        <!-- Séries Section avec carrousel -->
         <h2 class="section-title" id="series"><i class="fas fa-tv"></i> SÉRIES POPULAIRES</h2>
-        <div class="movies-container">
-            <!-- Squid Game -->
-            <a href="1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKuaXvXPGcKNvtX_o7FKLQ2xqYGiwjO9V22URd74L5N_WKuVIJ&s" alt="Squid Game S03">
-                <div class="movie-info">
-                    <div class="movie-name">Squid Game S03</div>
-                    <div class="movie-category">Drame, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DIRTH LINEN -->
-            <a href="dirth-linen-1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm_MK2Wy2Dm71DSYHcRCXGSzoHFgZkKFmyukHG0ieAnfpLqUk&s" alt="DIRTH LINEN">
-                <div class="movie-info">
-                    <div class="movie-name">DIRTH LINEN</div>
-                    <div class="movie-category">Drame, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- House of David -->
-            <a href="01.html" class="movie-card">
-                <img src="david.png" alt="House of David">
-                <div class="movie-info">
-                    <div class="movie-name">House of David</div>
-                    <div class="movie-category">Drame, Historique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> SAVIMBI </div>
-                </div>
-            </a>
+        <div class="carousel-container" id="seriesCarousel">
+            <div class="carousel">
+                <!-- Squid Game -->
+                <a href="1.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKuaXvXPGcKNvtX_o7FKLQ2xqYGiwjO9V22URd74L5N_WKuVIJ&s" alt="Squid Game S03">
+                    <div class="movie-info">
+                        <div class="movie-name">Squid Game S03</div>
+                        <div class="movie-category">Drame, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- DIRTH LINEN -->
+                <a href="dirth-linen-1.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm_MK2Wy2Dm71DSYHcRCXGSzoHFgZkKFmyukHG0ieAnfpLqUk&s" alt="DIRTH LINEN">
+                    <div class="movie-info">
+                        <div class="movie-name">DIRTH LINEN</div>
+                        <div class="movie-category">Drame, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- House of David -->
+                <a href="01.html" class="movie-card">
+                    <img src="david.png" alt="House of David">
+                    <div class="movie-info">
+                        <div class="movie-name">House of David</div>
+                        <div class="movie-category">Drame, Historique</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> SAVIMBI </div>
+                    </div>
+                </a>
+            </div>
+            <div class="carousel-nav" id="seriesNav"></div>
         </div>
         
-        <!-- Films d'horreur Section -->
+        <!-- Films d'horreur Section avec carrousel -->
         <h2 class="section-title" id="horreur"><i class="fas fa-ghost"></i> FILMS D'HORREUR</h2>
-        <div class="movies-container">
-            <!-- UNTIL DAWN -->
-            <a href="UNTIL DAWN.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DAWN">
-                <div class="movie-info">
-                    <div class="movie-name">UNTIL DAWN</div>
-                    <div class="movie-category">Horreur, Survival</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
-                </div>
-            </a>
-            
-            <!-- SINNERS -->
-            <a href="SINNERS_A.html" class="movie-card">
-                <img src="https://resizing.flixster.com/VR3Tfr9zpNllsU6RchvnbhGmPkc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2VhOTdiZDNjLTlmODQtNGNlYi1iZWYwLWNkYjY2YmI5YzZjYS5qcGc=" alt="SINNERS">
-                <div class="movie-info">
-                    <div class="movie-name">SINNERS</div>
-                    <div class="movie-category">Thriller, Drame</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- IMMACULÉE -->
-            <a href="IMMACULATE.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CDkg1TWQgBW0ZYrgBrytw6kMRTmqkXyjNUuSsfv2yUou9BY&s" alt="IMMACULÉE">
-                <div class="movie-info">
-                    <div class="movie-name">IMMACULÉE</div>
-                    <div class="movie-category">Horreur, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+        <div class="carousel-container" id="horreurCarousel">
+            <div class="carousel">
+                <!-- UNTIL DAWN -->
+                <a href="UNTIL DAWN.html" class="movie-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Until_Dawn_%282025%29_poster.jpg" alt="UNTIL DAWN">
+                    <div class="movie-info">
+                        <div class="movie-name">UNTIL DAWN</div>
+                        <div class="movie-category">Horreur, Survival</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
+                    </div>
+                </a>
+                
+                <!-- SINNERS -->
+                <a href="SINNERS_A.html" class="movie-card">
+                    <img src="https://resizing.flixster.com/VR3Tfr9zpNllsU6RchvnbhGmPkc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2VhOTdiZDNjLTlmODQtNGNlYi1iZWYwLWNkYjY2YmI5YzZjYS5qcGc=" alt="SINNERS">
+                    <div class="movie-info">
+                        <div class="movie-name">SINNERS</div>
+                        <div class="movie-category">Thriller, Drame</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- IMMACULÉE -->
+                <a href="IMMACULATE.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CDkg1TWQgBW0ZYrgBrytw6kMRTmqkXyjNUuSsfv2yUou9BY&s" alt="IMMACULÉE">
+                    <div class="movie-info">
+                        <div class="movie-name">IMMACULÉE</div>
+                        <div class="movie-category">Horreur, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- STRAW -->
+                <a href="STRAW_A.html" class="movie-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
+                    <div class="movie-info">
+                        <div class="movie-name">STRAW</div>
+                        <div class="movie-category">Horreur, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+            </div>
+            <div class="carousel-nav" id="horreurNav"></div>
         </div>
         
-        <!-- Films d'action Section -->
+        <!-- Films d'action Section avec carrousel -->
         <h2 class="section-title" id="action"><i class="fas fa-explosion"></i> FILMS D'ACTION</h2>
-        <div class="movies-container">
-            <!-- OLD GUARD -->
-            <a href="OLD_GUARD_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
-                <div class="movie-info">
-                    <div class="movie-name">OLD GUARD</div>
-                    <div class="movie-category">Action, Aventure</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- JAAT -->
-            <a href="JAAT_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdsWHig2iEwsiXUzdSPlupp69X2icogQzKwwMHhfDOC5D-Foo&s" alt="JAAT">
-                <div class="movie-info">
-                    <div class="movie-name">JAAT</div>
-                    <div class="movie-category">Action, Science-fiction</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DIABLO -->
-            <a href="DIABLO_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR74U9Z3GdSY_Fa1BVohQ8QRtPq5aX6PvgcBTeLPYHCmbIBsJ7ou73Bdw&usqp=CAE&s" alt="DIABLO">
-                <div class="movie-info">
-                    <div class="movie-name">DIABLO</div>
-                    <div class="movie-category">Horreur, Mystère</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- 13 SINS -->
-            <a href="13_SINS.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0u34cPv2k6jqOYhCniLKCoJuB8CNinnV0hfhQomAKlWXa_9Q&s" alt="13 SINS">
-                <div class="movie-info">
-                    <div class="movie-name">13 SINS</div>
-                    <div class="movie-category">Thriller, Horreur</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- DEVA -->
-            <a href="DEVA_A.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA">
-                <div class="movie-info">
-                    <div class="movie-name">DEVA</div>
-                    <div class="movie-category">Action, Fantastique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- PUSHPA -->
-            <a href="PUSHPA_2.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLw236lGOi1DDJwqX9PgJIS2d4Ls667T-948heqpL6-I20SE_&s" alt="PUSHPA">
-                <div class="movie-info">
-                    <div class="movie-name">PUSHPA</div>
-                    <div class="movie-category">Action, Drame</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- CLEANER -->
-            <a href="CLEANER.html" class="movie-card">
-                <img src="cleanner.png" alt="CLEANER">
-                <div class="movie-info">
-                    <div class="movie-name">CLEANER</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
-                </div>
-            </a>
-            
-            <!-- RUSTOM -->
-            <a href="RUSTOM_A_1.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM">
-                <div class="movie-info">
-                    <div class="movie-name">RUSTOM</div>
-                    <div class="movie-category">Action, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-            
-            <!-- SYE RAA NARASIMHA REDDY -->
-            <a href="SYE_RAA.html" class="movie-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrw2LUmKUwiCe0J4LXDyPFaCBbvwKLcRIFIV6DBbxqTtL2PjNl&s" alt="SYE RAA NARASIMHA REDDY">
-                <div class="movie-info">
-                    <div class="movie-name">SYE RAA NARASIMHA REDDY</div>
-                    <div class="movie-category">Action, Historique</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
-        </div>
-        
-        <!-- Autres Section -->
-        <h2 class="section-title" id="autres"><i class="fas fa-ellipsis-h"></i> AUTRES</h2>
-        <div class="movies-container">
-            <!-- STRAW -->
-            <a href="STRAW_A.html" class="movie-card">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Straw_film_poster.jpg" alt="STRAW">
-                <div class="movie-info">
-                    <div class="movie-name">STRAW</div>
-                    <div class="movie-category">Horreur, Thriller</div>
-                    <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
-                </div>
-            </a>
+        <div class="carousel-container" id="actionCarousel">
+            <div class="carousel">
+                <!-- OLD GUARD -->
+                <a href="OLD_GUARD_A.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1q1JpSmkasvZYkjXOpUE0QfoUYtFMYW0ScxvfdY2e8o9pWA&s" alt="OLD GUARD">
+                    <div class="movie-info">
+                        <div class="movie-name">OLD GUARD</div>
+                        <div class="movie-category">Action, Aventure</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- JAAT -->
+                <a href="JAAT_A.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdsWHig2iEwsiXUzdSPlupp69X2icogQzKwwMHhfDOC5D-Foo&s" alt="JAAT">
+                    <div class="movie-info">
+                        <div class="movie-name">JAAT</div>
+                        <div class="movie-category">Action, Science-fiction</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- DIABLO -->
+                <a href="DIABLO_A.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR74U9Z3GdSY_Fa1BVohQ8QRtPq5aX6PvgcBTeLPYHCmbIBsJ7ou73Bdw&usqp=CAE&s" alt="DIABLO">
+                    <div class="movie-info">
+                        <div class="movie-name">DIABLO</div>
+                        <div class="movie-category">Horreur, Mystère</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- 13 SINS -->
+                <a href="13_SINS.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0u34cPv2k6jqOYhCniLKCoJuB8CNinnV0hfhQomAKlWXa_9Q&s" alt="13 SINS">
+                    <div class="movie-info">
+                        <div class="movie-name">13 SINS</div>
+                        <div class="movie-category">Thriller, Horreur</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- DEVA -->
+                <a href="DEVA_A.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2bsrhEm_9El3VkZ-6m-VTEK8DeBgrBg7qdG_zZcmoJmsAtW4&s" alt="DEVA">
+                    <div class="movie-info">
+                        <div class="movie-name">DEVA</div>
+                        <div class="movie-category">Action, Fantastique</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- PUSHPA -->
+                <a href="PUSHPA_2.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLw236lGOi1DDJwqX9PgJIS2d4Ls667T-948heqpL6-I20SE_&s" alt="PUSHPA">
+                    <div class="movie-info">
+                        <div class="movie-name">PUSHPA</div>
+                        <div class="movie-category">Action, Drame</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- CLEANER -->
+                <a href="CLEANER.html" class="movie-card">
+                    <img src="cleanner.png" alt="CLEANER">
+                    <div class="movie-info">
+                        <div class="movie-name">CLEANER</div>
+                        <div class="movie-category">Action, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> GAHEZA SIMBA</div>
+                    </div>
+                </a>
+                
+                <!-- RUSTOM -->
+                <a href="RUSTOM_A_1.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTvJYAdym1BrQMSNpQ3xJf_HxAbDldTURz3Lu6vcuK8gUHtNR&s" alt="RUSTOM">
+                    <div class="movie-info">
+                        <div class="movie-name">RUSTOM</div>
+                        <div class="movie-category">Action, Thriller</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+                
+                <!-- SYE RAA NARASIMHA REDDY -->
+                <a href="SYE_RAA.html" class="movie-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrw2LUmKUwiCe0J4LXDyPFaCBbvwKLcRIFIV6DBbxqTtL2PjNl&s" alt="SYE RAA NARASIMHA REDDY">
+                    <div class="movie-info">
+                        <div class="movie-name">SYE RAA NARASIMHA REDDY</div>
+                        <div class="movie-category">Action, Historique</div>
+                        <div class="movie-interpreter"><i class="fas fa-microphone"></i> ROCKY KIMOMO</div>
+                    </div>
+                </a>
+            </div>
+            <div class="carousel-nav" id="actionNav"></div>
         </div>
     </div>
     
@@ -952,7 +996,7 @@
         function performSearch(searchTerm) {
             if (searchTerm.trim() === '') {
                 // Si la recherche est vide, réafficher tout le contenu
-                document.querySelectorAll('.section-title, .movies-container').forEach(el => {
+                document.querySelectorAll('.section-title, .carousel-container').forEach(el => {
                     el.style.display = '';
                 });
                 document.getElementById('searchResults').classList.remove('active');
@@ -960,7 +1004,7 @@
             }
             
             // Masquer toutes les sections
-            document.querySelectorAll('.section-title, .movies-container').forEach(el => {
+            document.querySelectorAll('.section-title, .carousel-container').forEach(el => {
                 el.style.display = 'none';
             });
             
@@ -1055,6 +1099,172 @@
                 // Rediriger vers la page de login si non connecté
                 window.location.href = 'login.html';
             }
+        });
+
+        // Fonction pour gérer le défilement des carrousels
+        function setupCarousel(containerId, navId) {
+            const container = document.getElementById(containerId);
+            const carousel = container.querySelector('.carousel');
+            const nav = document.getElementById(navId);
+            const cards = carousel.querySelectorAll('.movie-card');
+            
+            if (cards.length === 0) return;
+            
+            const cardWidth = cards[0].offsetWidth + parseInt(window.getComputedStyle(carousel).gap);
+            let currentIndex = 0;
+            let isDragging = false;
+            let startX = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            
+            // Créer les indicateurs de navigation
+            const totalSlides = Math.ceil(cards.length / 3); // 3 films visibles à la fois
+            nav.innerHTML = '';
+            
+            for (let i = 0; i < totalSlides; i++) {
+                const button = document.createElement('button');
+                button.addEventListener('click', () => goToSlide(i));
+                nav.appendChild(button);
+            }
+            
+            updateNav();
+            
+            // Événements tactiles
+            carousel.addEventListener('touchstart', touchStart, { passive: false });
+            carousel.addEventListener('touchmove', touchMove, { passive: false });
+            carousel.addEventListener('touchend', touchEnd);
+            
+            // Événements souris
+            carousel.addEventListener('mousedown', mouseDown);
+            carousel.addEventListener('mousemove', mouseMove);
+            carousel.addEventListener('mouseup', mouseUp);
+            carousel.addEventListener('mouseleave', mouseUp);
+            
+            // Empêcher le menu contextuel
+            carousel.addEventListener('contextmenu', (e) => e.preventDefault());
+            
+            function touchStart(e) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                animationID = requestAnimationFrame(animation);
+                carousel.style.transition = 'none';
+            }
+            
+            function touchMove(e) {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                currentTranslate = prevTranslate + currentX - startX;
+            }
+            
+            function touchEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                
+                const movedBy = currentTranslate - prevTranslate;
+                
+                // Si le mouvement est trop petit, on ne change pas de slide
+                if (Math.abs(movedBy) < cardWidth * 0.2) {
+                    currentTranslate = prevTranslate;
+                } else {
+                    // Déterminer la direction du glissement
+                    if (movedBy < 0 && currentIndex < cards.length - 3) {
+                        currentIndex++;
+                    } else if (movedBy > 0 && currentIndex > 0) {
+                        currentIndex--;
+                    }
+                    
+                    currentTranslate = -currentIndex * cardWidth;
+                }
+                
+                carousel.style.transition = 'transform 0.3s ease';
+                carousel.style.transform = `translateX(${currentTranslate}px)`;
+                prevTranslate = currentTranslate;
+                updateNav();
+            }
+            
+            function mouseDown(e) {
+                startX = e.clientX;
+                isDragging = true;
+                animationID = requestAnimationFrame(animation);
+                carousel.style.transition = 'none';
+            }
+            
+            function mouseMove(e) {
+                if (!isDragging) return;
+                const currentX = e.clientX;
+                currentTranslate = prevTranslate + currentX - startX;
+            }
+            
+            function mouseUp() {
+                if (!isDragging) return;
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                
+                const movedBy = currentTranslate - prevTranslate;
+                
+                // Si le mouvement est trop petit, on ne change pas de slide
+                if (Math.abs(movedBy) < cardWidth * 0.2) {
+                    currentTranslate = prevTranslate;
+                } else {
+                    // Déterminer la direction du glissement
+                    if (movedBy < 0 && currentIndex < cards.length - 3) {
+                        currentIndex++;
+                    } else if (movedBy > 0 && currentIndex > 0) {
+                        currentIndex--;
+                    }
+                    
+                    currentTranslate = -currentIndex * cardWidth;
+                }
+                
+                carousel.style.transition = 'transform 0.3s ease';
+                carousel.style.transform = `translateX(${currentTranslate}px)`;
+                prevTranslate = currentTranslate;
+                updateNav();
+            }
+            
+            function animation() {
+                carousel.style.transform = `translateX(${currentTranslate}px)`;
+                animationID = requestAnimationFrame(animation);
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                currentTranslate = -currentIndex * cardWidth;
+                prevTranslate = currentTranslate;
+                carousel.style.transition = 'transform 0.3s ease';
+                carousel.style.transform = `translateX(${currentTranslate}px)`;
+                updateNav();
+            }
+            
+            function updateNav() {
+                const activeIndex = Math.floor(currentIndex / 3);
+                const buttons = nav.querySelectorAll('button');
+                
+                buttons.forEach((button, index) => {
+                    if (index === activeIndex) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Gérer le redimensionnement
+            window.addEventListener('resize', () => {
+                cardWidth = cards[0].offsetWidth + parseInt(window.getComputedStyle(carousel).gap);
+                currentTranslate = -currentIndex * cardWidth;
+                carousel.style.transform = `translateX(${currentTranslate}px)`;
+            });
+        }
+
+        // Initialiser tous les carrousels
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCarousel('nouveautesCarousel', 'nouveautesNav');
+            setupCarousel('seriesCarousel', 'seriesNav');
+            setupCarousel('horreurCarousel', 'horreurNav');
+            setupCarousel('actionCarousel', 'actionNav');
         });
     </script>
 </body>
